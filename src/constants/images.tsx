@@ -1,0 +1,6 @@
+export { default as FACEBOOK } from '@/public/images/facebook.png'
+export { default as FACECARDE } from '@/public/images/facecarde.png'
+export { default as GOOGLE } from '@/public/images/google.png'
+export { default as LOGIN } from '@/public/images/login.png'
+export { default as PROFILE } from '@/public/images/profile.png'
+export { default as SEND } from '@/public/images/send code to mail.png'

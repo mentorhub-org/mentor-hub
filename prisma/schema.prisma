@@ -1,0 +1,201 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User Model
+model User {
+  id            String    @id @default(uuid()) // Use UUID for better scalability
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  role          String?   @default("user")
+  banned        Boolean   @default(false)
+  banReason     String?
+  banExpires    DateTime?
+  phone         String?   @unique
+  dateOfBirth   DateTime?
+
+  // Self-referential relation for parent/child users
+  parentUserId String?
+  parentUser   User?   @relation("UserParent", fields: [parentUserId], references: [id], onDelete: SetNull)
+  children     User[]  @relation("UserParent")
+
+  // Relationships
+  details         UserDetails?     @relation("UserToDetails")
+  sessions        Session[]
+  accounts        Account[]
+  reviews         Review[]         @relation("UserReviews")
+  reviewsGiven    Review[]         @relation("Reviewer")
+  portfolioLinks  PortfolioLink[]
+  socialLinks     SocialLink[]
+  chatMemberships ChatMembership[] @relation("ChatMembers")
+  sentMessages    Message[]        @relation("SentMessages")
+
+  @@map("user")
+}
+
+// UserDetails Model (One-to-One with User)
+model UserDetails {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation("UserToDetails", fields: [userId], references: [id], onDelete: Cascade)
+  jobTitle  String?
+  fullName  String?
+  skills    String[] @default([])
+  gender    String?
+  about     String?
+  available Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("user_details")
+}
+
+// Chat Model (Supports both private chats and public channels)
+model Chat {
+  id        String   @id @default(uuid())
+  name      String? // Optional for private chats, required for public channels
+  isPublic  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships
+  members  ChatMembership[]
+  messages Message[]
+
+  @@map("chat")
+}
+
+// ChatMembership Model (Join table for chat participants)
+model ChatMembership {
+  id       String   @id @default(uuid())
+  chatId   String
+  userId   String
+  joinedAt DateTime @default(now())
+
+  // Relationships
+  chat Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  user User @relation("ChatMembers", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([chatId, userId])
+  @@map("chat_membership")
+}
+
+// Message Model
+model Message {
+  id        String   @id @default(uuid())
+  content   String
+  chatId    String
+  senderId  String
+  createdAt DateTime @default(now())
+  isRead    Boolean  @default(false)
+
+  // Relationships
+  chat   Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  sender User @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@map("message")
+}
+
+// Review Model
+model Review {
+  id         String   @id @default(uuid())
+  userId     String
+  reviewerId String
+  rating     Int      @default(0) // Explicitly define as integer
+  comment    String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relationships
+  user     User @relation("UserReviews", fields: [userId], references: [id], onDelete: Cascade)
+  reviewer User @relation("Reviewer", fields: [reviewerId], references: [id], onDelete: Cascade)
+
+  @@map("review")
+}
+
+// PortfolioLink Model
+model PortfolioLink {
+  id        String   @id @default(uuid())
+  userId    String
+  platform  String
+  url       String   @db.VarChar(255) // Limit URL length
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("portfolio_link")
+}
+
+// SocialLink Model
+model SocialLink {
+  id        String   @id @default(uuid())
+  userId    String
+  platform  String
+  url       String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("social_link")
+}
+
+// Session Model
+model Session {
+  id             String   @id @default(uuid()) // Use UUID for consistency
+  expiresAt      DateTime
+  token          String   @unique
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  ipAddress      String?
+  userAgent      String?
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  impersonatedBy String?
+
+  @@map("session")
+}
+
+// Account Model
+model Account {
+  id                    String    @id @default(uuid())
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("account")
+}
+
+// Verification Model
+model Verification {
+  id         String   @id @default(uuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("verification")
+}
