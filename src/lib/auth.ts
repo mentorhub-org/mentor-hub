@@ -68,7 +68,7 @@ export const auth = betterAuth({
   }),
   hooks: {
     before: createAuthMiddleware(async ctx => {
-      console.log(ctx.path, 'test')
+      // console.log(ctx.path, 'test')
       return true
     }),
   },

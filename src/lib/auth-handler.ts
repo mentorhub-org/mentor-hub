@@ -23,7 +23,7 @@ export const signOut = async () => {
 
 const signInSocial = async (provider: 'google' | 'linkedin' | 'github') => {
   const { url } = await auth.api.signInSocial({
-    body: { callbackURL: `${process.env.BASE_URL}/overview`, provider },
+    body: { callbackURL: `${process.env.BASE_URL}/profile`, provider },
   })
   if (!url) {
     throw new Error('No URL returned from signInSocial')
@@ -51,5 +51,5 @@ export const signInFn = async (data: Login) => {
   } catch (error) {
     console.log('error', error)
   }
-  redirect('/overview')
+  redirect('/profile')
 }
