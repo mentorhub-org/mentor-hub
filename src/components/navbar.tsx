@@ -1,7 +1,10 @@
+'use client'
+
 import React, { useState } from 'react';
 import { FACE, MASSAGE, MENUU, PRIM, SEARCH, SETING } from "@/constants/icons";
+import Image from 'next/image';
 
-export default function NavBar() {
+export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -20,27 +23,27 @@ export default function NavBar() {
               className="w-65 p-2 text-gray-500 bg-blue-50 rounded-l-full outline-none text-sm md:text-base placeholder-gray-500"
             />
             <button className="p-2 bg-blue-500 w-10 h-10 text-white rounded-r-full flex items-center justify-center">
-              <img src={SEARCH} alt="Search" className="w-5 h-5" />
+              <Image src={SEARCH} alt="Search" className="w-5 h-5" />
             </button>
           </div>
         </div>
 
         <div className="md:hidden">
           <button onClick={toggleMenu}>
-            <img src={MENUU} alt="Menu" className="w-8 h-8" />
+            <Image src={MENUU} alt="Menu" className="w-8 h-8" />
           </button>
         </div>
 
         <div className="hidden md:flex items-center gap-4">
           <button className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-full text-sm md:text-base">
-            <img src={PRIM} alt="Prim" className="w-5 h-5" />
+            <Image src={PRIM} alt="Prim" className="w-5 h-5" />
             <span>Create Course</span>
           </button>
 
           <div className="flex gap-8">
-            <img src={MASSAGE} alt="Massage" className="w-6 h-6 cursor-pointer" />
-            <img src={SETING} alt="Setting" className="w-6 h-6 cursor-pointer" />
-            <img src={FACE} alt="Face" className="w-6 h-6 cursor-pointer" />
+            <Image src={MASSAGE} alt="Massage" className="text- w-6 h-6 cursor-pointer" />
+            <Image src={SETING} alt="Setting" className="w-6 h-6 cursor-pointer" />
+            <Image src={FACE} alt="Face" className="w-6 h-6 cursor-pointer" />
           </div>
         </div>
       </div>
@@ -57,21 +60,21 @@ export default function NavBar() {
             className="w-full p-2 text-gray-500 bg-blue-50 rounded-l-full outline-none text-sm placeholder-gray-500"
           />
           <button className="p-2 bg-blue-500 w-10 h-10 text-white rounded-r-full flex items-center justify-center">
-            <img src={SEARCH} alt="Search" className="w-5 h-5" />
+            <Image src={SEARCH} alt="Search" className="w-5 h-5" />
           </button>
         </div>
 
         
         <button className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-full text-sm w-full justify-center">
-          <img src={PRIM} alt="Prim" className="w-5 h-5" />
+          <Image src={PRIM} alt="Prim" className="w-5 h-5" />
           <span>Create Course</span>
         </button>
 
       
         <div className="flex gap-3 mt-2">
-          <img src={MASSAGE} alt="Massage" className="w-6 h-6 cursor-pointer" />
-          <img src={SETING} alt="Setting" className="w-6 h-6 cursor-pointer" />
-          <img src={FACE} alt="Face" className="w-6 h-6 cursor-pointer" />
+          <Image src={MASSAGE} alt="Massage" className="w-6 h-6 cursor-pointer" />
+          <Image src={SETING} alt="Setting" className="w-6 h-6 cursor-pointer" />
+          <Image src={FACE} alt="Face" className="w-6 h-6 cursor-pointer" />
         </div>
       </div>
     </nav>

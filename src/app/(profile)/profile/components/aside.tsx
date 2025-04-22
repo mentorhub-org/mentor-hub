@@ -1,6 +1,7 @@
  'use client'
  import { BE, DRI, FACEBOOKK, GITHUB, INSTAGRAM, LINKED, MAIL, MAP, MENU, PHONE, REFRESH, TELEGRAM, TICK, TICKA, TIMER, WHATSAPP } from "@/constants/icons";
 import { PROFILE } from "@/constants/images";
+import Image from "next/image";
 
 export default function Aside() {
   return (
@@ -8,7 +9,7 @@ export default function Aside() {
       <div className="flex flex-col items-center border-r-2 border-gray-300 pr-4 md:pr-6">
         {/* Profile Section */}
         <div className="text-center">
-          <img
+          <Image
             src={PROFILE}
             alt="Profile"
             className="rounded-full mx-auto w-24 h-24 md:w-32 md:h-32 object-cover"
@@ -32,22 +33,22 @@ export default function Aside() {
           <h3 className="text-blue-500 font-bold text-lg">About</h3>
           <div className="mt-4 space-y-3">
             <p className="flex items-center space-x-2 text-gray-600">
-              <img src={PHONE} alt="Phone" className="w-5 h-5" />
+              <Image src={PHONE} alt="Phone" className="w-5 h-5" />
               <span className="text-gray-400 text-sm">Phone:</span>
               <span className="text-sm">+20 123 456 7890</span>
             </p>
             <p className="flex items-center space-x-2 text-gray-600">
-              <img src={MAIL} alt="Email" className="w-5 h-5" />
+              <Image src={MAIL} alt="Email" className="w-5 h-5" />
               <span className="text-gray-400 text-sm">Email:</span>
               <span className="text-sm">nourmohamed@gmail.com</span>
             </p>
             <p className="flex items-center space-x-2 text-gray-600">
-              <img src={MAP} alt="Address" className="w-5 h-5" />
+              <Image src={MAP} alt="Address" className="w-5 h-5" />
               <span className="text-gray-400 text-sm">Address:</span>
               <span className="text-sm">Egypt, Cairo</span>
             </p>
             <p className="flex items-center space-x-2 text-gray-600">
-              <img src={MENU} alt="Date of Birth" className="w-5 h-5" />
+              <Image src={MENU} alt="Date of Birth" className="w-5 h-5" />
               <span className="text-gray-400 text-sm">Date of Birth:</span>
               <span className="text-sm">Oct 19, 1988</span>
             </p>
@@ -61,22 +62,22 @@ export default function Aside() {
           <h3 className="text-blue-500 font-bold text-lg">Mentorship Sessions</h3>
           <div className="mt-4 space-y-3">
             <p className="flex items-center space-x-2 text-gray-600">
-              <img src={REFRESH} alt="Ongoing Sessions" className="w-5 h-5" />
+              <Image src={REFRESH} alt="Ongoing Sessions" className="w-5 h-5" />
               <span className="text-gray-400 text-sm">Ongoing Sessions:</span>
               <span className="text-sm">4</span>
             </p>
             <p className="flex items-center space-x-2 text-gray-600">
-              <img src={TICKA} alt="Completed Sessions" className="w-5 h-5" />
+              <Image src={TICKA} alt="Completed Sessions" className="w-5 h-5" />
               <span className="text-gray-400 text-sm">Completed Sessions:</span>
               <span className="text-sm">12</span>
             </p>
             <p className="flex items-center space-x-2 text-gray-600">
-              <img src={TICK} alt="Unfinished Sessions" className="w-5 h-5" />
+              <Image src={TICK} alt="Unfinished Sessions" className="w-5 h-5" />
               <span className="text-gray-400 text-sm">Unfinished Sessions:</span>
               <span className="text-sm">3</span>
             </p>
             <p className="flex items-center space-x-2 text-gray-600">
-              <img src={TIMER} alt="Postponed Sessions" className="w-5 h-5" />
+              <Image src={TIMER} alt="Postponed Sessions" className="w-5 h-5" />
               <span className="text-gray-400 text-sm">Postponed Sessions:</span>
               <span className="text-sm">5</span>
             </p>
@@ -90,7 +91,7 @@ export default function Aside() {
           <h3 className="text-blue-500 font-bold text-lg">Links</h3>
           <div className="mt-4 space-y-3">
             <p className="flex items-center space-x-2 text-gray-600">
-              <img src={LINKED} alt="LinkedIn" className="w-5 h-5" />
+              <Image src={LINKED} alt="LinkedIn" className="w-5 h-5" />
               <span className="text-gray-400 text-sm">LinkedIn:</span>
               <a
                 className="text-blue-500 text-sm hover:underline"
@@ -102,7 +103,7 @@ export default function Aside() {
               </a>
             </p>
             <p className="flex items-center space-x-2 text-gray-600">
-              <img src={GITHUB} alt="GitHub" className="w-5 h-5" />
+              <Image src={GITHUB} alt="GitHub" className="w-5 h-5" />
               <span className="text-gray-400 text-sm">GitHub:</span>
               <a
                 className="text-blue-500 text-sm hover:underline"
@@ -114,7 +115,7 @@ export default function Aside() {
               </a>
             </p>
             <p className="flex items-center space-x-2 text-gray-600">
-              <img src={BE} alt="Behance" className="w-5 h-5" />
+              <Image src={BE} alt="Behance" className="w-5 h-5" />
               <span className="text-gray-400 text-sm">Behance:</span>
               <a
                 className="text-blue-500 text-sm hover:underline"
@@ -126,7 +127,7 @@ export default function Aside() {
               </a>
             </p>
             <p className="flex items-center space-x-2 text-gray-600">
-              <img src={DRI} alt="Dribbble" className="w-5 h-5" />
+              <Image src={DRI} alt="Dribbble" className="w-5 h-5" />
               <span className="text-gray-400 text-sm">Dribbble:</span>
               <a
                 className="text-blue-500 text-sm hover:underline"
@@ -150,28 +151,28 @@ export default function Aside() {
               href="#"
               className="flex flex-col items-center text-blue-500 hover:text-blue-600 transition"
             >
-              <img src={FACEBOOKK} alt="Facebook" className="w-6 h-6" />
+              <Image src={FACEBOOKK} alt="Facebook" className="w-6 h-6" />
               <span className="text-sm mt-1">Facebook</span>
             </a>
             <a
               href="#"
               className="flex flex-col items-center text-pink-500 hover:text-pink-600 transition"
             >
-              <img src={INSTAGRAM} alt="Instagram" className="w-6 h-6" />
+              <Image src={INSTAGRAM} alt="Instagram" className="w-6 h-6" />
               <span className="text-sm mt-1">Instagram</span>
             </a>
             <a
               href="#"
               className="flex flex-col items-center text-blue-400 hover:text-blue-500 transition"
             >
-              <img src={TELEGRAM} alt="Telegram" className="w-6 h-6" />
+              <Image src={TELEGRAM} alt="Telegram" className="w-6 h-6" />
               <span className="text-sm mt-1">Telegram</span>
             </a>
             <a
               href="#"
               className="flex flex-col items-center text-green-500 hover:text-green-600 transition"
             >
-              <img src={WHATSAPP} alt="WhatsApp" className="w-6 h-6" />
+              <Image src={WHATSAPP} alt="WhatsApp" className="w-6 h-6" />
               <span className="text-sm mt-1">WhatsApp</span>
             </a>
           </div>
