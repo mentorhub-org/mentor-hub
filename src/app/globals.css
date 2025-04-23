@@ -4,8 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-primary: #137bdd;
-  --color-secondary: #47b5ff;
+  --color-darkblue: #137bdd;
+  --color-lightblue: #47b5ff;
   --color-light: #eff5f9;
   --color-dark: #1a2130;
   --color-background: var(--background);
@@ -123,4 +123,8 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.bg-gradient {
+  background: linear-gradient(55.08deg, #137bdd 20.31%, #4db7ff 72.54%);
 }

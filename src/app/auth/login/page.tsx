@@ -81,7 +81,7 @@ export default function Login() {
           <div className="flex flex-wrap justify-center gap-4 mt-4">
             <button
               onClick={authHandler.signInLinkedIn}
-              className="flex items-center justify-center w-full sm:w-auto border border-blue-500 px-6 py-2 rounded-lg text-black">
+              className="flex cursor-pointer items-center justify-center w-full sm:w-auto border border-blue-500 px-6 py-2 rounded-lg text-black">
               LinkedIn
               <Image
                 src={LINKEDIN}
