@@ -3,11 +3,12 @@ import { auth } from '@/lib/auth'
 import { headers } from 'next/headers'
 
 export const getProfile = async () => {
+  'use server'
   const session = await auth.api.getSession({ headers: await headers() })
 
-  const res = prisma.profile.findUnique({
-    where: { id: session?.user.id },
+  const profile = await prisma.profile.findUnique({
+    where: { userId: session?.user.id },
   })
 
-  return res
+  return { profile, session }
 }

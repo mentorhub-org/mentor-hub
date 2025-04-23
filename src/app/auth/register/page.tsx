@@ -30,8 +30,8 @@ export default function Register() {
   }
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-blue-50">
-      <div className="flex w-full h-full bg-white shadow-lg">
+    <div className="flex h-screen items-center justify-center bg-blue-50">
+      <div className="flex w-full h-full bg-white">
         {/* Form Section */}
         <div className="w-full md:w-1/2 p-10 flex flex-col justify-center">
           <h2 className="text-3xl font-bold text-blue-600 mb-2">
@@ -99,7 +99,6 @@ export default function Register() {
               />
               <PickDate
                 lable="Date Of Birth"
-                name="dateOfBirth"
                 onChangeDate={onChangeBirthDate}
                 classNames={{
                   label: 'text-black mb-2',
