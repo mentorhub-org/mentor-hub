@@ -1,3 +1,4 @@
+import Title from '@/components/ui/title';
 import { BOOKBLACK, LINKBLUE, LOGIN,  PRO, VECTOR } from '@/constants/icons';
 import { PROFILE } from '@/constants/images';
 import Image from 'next/image';

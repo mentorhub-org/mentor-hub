@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-primary  text-primary-foreground shadow-xs hover:bg-primary/90',
+          'bg-primary text-primary-foreground shadow-xs hover:bg-primary/90',
         destructive:
           'bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
         outline:
@@ -40,10 +40,12 @@ function Button({
   variant,
   size,
   asChild = false,
+  children,
   ...props
 }: React.ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
+    asChild?: boolean,
+    children?:React.ReactNode
   }) {
   const Comp = asChild ? Slot : 'button'
 
@@ -53,7 +55,7 @@ function Button({
       className={cn(buttonVariants({ variant, size, className }))}
       {...(asChild ? { asChild: true } : {})}
       {...props}
-    />
+    >{children} </Comp>
   )
 }
 

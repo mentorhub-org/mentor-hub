@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { BOOKBLACK, LINK, LOGIN,  PROBIUE, VECTOR } from '@/constants/icons';
 import { PROFILE } from '@/constants/images';
 import Image from 'next/image';
@@ -44,6 +45,10 @@ export default function aside() {
             </ul>
           </nav>
     
+          <Button variant={'destructive'}>
+          <Image src={LOGIN} className='m-1 h-96' alt="" />
+            Log Out
+          </Button>
           {/* Logout Button */}
           <button className="mt-8 flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all">
           <Image src={LOGIN} className='m-1' alt="" />
