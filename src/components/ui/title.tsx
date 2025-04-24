@@ -13,7 +13,7 @@ export default function Title({ className, children }: Props) {
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
       }}
-      className={cn('', className)}>
+      className={cn('text-2xl sm:text-3xl font-bold bg-gradient-to-tr from-blue-500 to-blue-50  bg-clip-text text-transparent mb-4', className)}>
       {children}
     </h3>
   )

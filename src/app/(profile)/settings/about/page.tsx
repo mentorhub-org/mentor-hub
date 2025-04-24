@@ -1,3 +1,11 @@
+import Aside from './component/aside'
+
 export default function About() {
-  return <div>About</div>
+  return (
+    <main className="flex gap-1 bg-light">
+ <Aside/>
+
+
+ </main>
+  );
 }

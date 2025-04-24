@@ -24,3 +24,13 @@ export { default as TICK } from '@/public/icons/tick.svg'
 export { default as TICKA } from '@/public/icons/ticka.svg'
 export { default as TIMER } from '@/public/icons/timer.svg'
 export { default as WHATSAPP } from '@/public/icons/whatsapp.svg'
+export {default as LOGIN} from '@/public/icons/login.svg'
+export {default as LINK} from '@/public/icons/link.svg'
+export {default as PRO} from '@/public/icons/profile.svg'
+export {default as BOOK} from '@/public/icons/book.svg'
+export {default as VECTOR} from '@/public/icons/Vector.svg'
+export {default as PROBIUE} from '@/public/icons/profile-blue.svg'
+export {default as BOOKBLACK} from '@/public/icons/book-black.svg'
+export {default as LINKBLUE} from '@/public/icons/link-blue.svg'
+
+

@@ -16,15 +16,15 @@ export default async function Profile() {
   }
 
   return (
-    <main className="flex gap-2">
+    <main className="flex gap-1 bg-light">
       <Aside />
-      <div className="min-h-screen bg-gray-100">
+      <div className="min-h-screen bg-white rounded-2xl m-3">
         <main className="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
           {/* About Me Section */}
-          <h2 className="text-2xl sm:text-3xl font-bold text-blue-500 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-tr from-blue-500 to-blue-50  bg-clip-text text-transparent mb-4">
             About Me
           </h2>
-          <section className="bg-blue-500 p-6 sm:p-8 rounded-xl shadow-md">
+          <section className="bg-gradient p-6 sm:p-8 rounded-xl shadow-md">
             <p className="text-white text-sm sm:text-base leading-relaxed">
               Hey there! I’m Nour Mohamed, a passionate graphic designer &
               visual storyteller who loves turning ideas into stunning visuals.
@@ -73,7 +73,7 @@ export default async function Profile() {
                   className="w-full h-24 p-3 bg-gray-100 rounded-lg outline-none text-gray-600 text-sm sm:text-base resize-none focus:ring-2 focus:ring-blue-300"
                   placeholder="Write your review here..."
                 />
-                <button className="px-4 py-2 bg-blue-500 text-white rounded-lg text-sm sm:text-base font-semibold hover:bg-blue-600 transition">
+                <button className="px-4 py-2 bg-gradient text-white rounded-lg text-sm sm:text-base font-semibold hover:bg-blue-600 transition">
                   Post Review
                 </button>
               </div>
