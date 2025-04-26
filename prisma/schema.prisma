@@ -56,18 +56,17 @@ model Profile {
 // Server Model
 
 model Server {
-  id          String  @id @default(uuid())
-  name        String  @unique
-  imgUrl      String? @db.Text
-  inviteCode  String? @db.Text
+  id          String    @id @default(uuid())
+  name        String    @unique
+  imgUrl      String?   @db.Text
+  inviteCode  String?   @db.Text
   description String?
-
-  profileId String?   @db.Text
-  profile   Profile?  @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Members   Member[]
-  Channels  Channel[]
+  profileId   String?   @db.Text
+  profile     Profile?  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  members     Member[]
+  channels    Channel[]
 
   @@map("server")
 }
@@ -114,8 +113,7 @@ model Channel {
   server    Server      @relation(fields: [serverId], references: [id], onDelete: Cascade)
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
-  // messages    Message[]
-  Message   Message[]
+  message   Message[]
 
   @@map("channel")
 }
