@@ -5,8 +5,8 @@ import Image from "next/image";
 
 export default function Aside() {
   return (
-    <aside className="w-full md:w-1/4 bg-gray-100 p-6 md:p-8 lg:p-10 shadow-lg">
-      <div className="flex flex-col items-center border-r-2 border-gray-300 pr-4 md:pr-6">
+    <aside className="m-3 w-full md:w-1/4 bg-white md:p-8 lg:p-10 shadow-lg rounded-2xl">
+      <div className="flex flex-col items-center  ">
         {/* Profile Section */}
         <div className="text-center">
           <Image
@@ -23,9 +23,15 @@ export default function Aside() {
             ))}
             <span className="ml-2 text-gray-600 font-medium">4.5</span>
           </div>
-          <button className="w-full mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-blue-600 transition duration-300">
-            Chat With Me
-          </button>
+          {/* Adjusted Buttons Section */}
+          <div className="flex flex-col sm:flex-row gap-2 w-full mt-4">
+            <button className="text-nowrap p-2 flex-1 bg-gradient text-white  px-8 text-center rounded-lg text-sm font-semibold hover:bg-blue-600 transition duration-300">
+              Chat With Me
+            </button>
+            <button className="text-nowrap flex-1 bg-transparent border-2 border-blue-500 text-blue-500  px-8 rounded-lg text-sm font-semibold hover:bg-blue-50 transition duration-300">
+              Create Session
+            </button>
+          </div>
         </div>
 
         {/* About Section */}
@@ -179,5 +185,5 @@ export default function Aside() {
         </div>
       </div>
     </aside>
-  );
+);
 }
