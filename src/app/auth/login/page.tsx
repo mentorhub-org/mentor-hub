@@ -1,6 +1,7 @@
 'use client'
 
 import InputText from '@/components/shared/text-input'
+import { Button } from '@/components/ui/button'
 import Title from '@/components/ui/title'
 import { GITHUP, LINKEDIN } from '@/constants/icons'
 import { GOOGLE, LOGIN } from '@/constants/images'
@@ -26,17 +27,15 @@ export default function Login() {
       <div className="flex flex-col md:flex-row w-full h-full">
         {/* Right - Login Form */}
         <div className="w-full md:w-1/2 flex flex-col justify-center px-8 md:px-16 lg:px-24">
-          <h2 className="text-3xl font-bold text-black mb-2">
-            Login To <span className="text-blue-500">Mentorhub</span>
-          </h2>
+          <Title>Login To Mentorhub</Title>
           <Title className="text-3xl font-bold text-black mb-2" />
-          <p className="text-lg text-gray-600 mb-6">
+          <p className="text-lg text-blue-400 mb-6">
             Your Journey Resumes Here!
           </p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-6">
             <InputText
-              lable="Email"
+              label="Email"
               placeholder="Someone@Example.Com"
               type="email"
               name={'email'}
@@ -46,7 +45,7 @@ export default function Login() {
             />
 
             <InputText
-              lable="Password"
+              label="Password"
               placeholder="************"
               type="password"
               name={'password'}
@@ -63,11 +62,10 @@ export default function Login() {
               </Link>
             </div>
 
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white py-3 rounded-lg text-lg hover:bg-blue-600 hover:cursor-pointer transition">
+            <Button
+              type="submit" className='p-6'>
               Login
-            </button>
+            </Button>
 
             <p className="text-center text-gray-600 mt-4">
               Don&apos;t Have An Account?{' '}

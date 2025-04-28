@@ -4,8 +4,11 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Image from 'next/image';
 import Link from 'next/link';
-import Input from '@/components/ui/input'; 
-import UseAuth from '@/hooks/useauth';
+import InputText from '@/components/shared/text-input';
+import { useAuthQuery } from 'better-auth/client';
+import Title from '@/components/ui/title';
+import { Button } from '@/components/ui/button';
+
 
 
 interface Login {
@@ -23,7 +26,7 @@ export default function NewPasswordPage() {
     formState: { errors },
   } = useForm<Login>();
   
-  const { resetPassword } = UseAuth(); 
+  const { resetPassword } = useAuthQuery(); 
 
   const onSubmit: SubmitHandler<Login> = async (data) => {
     if (data.password !== data.confirmPassword) {
@@ -43,8 +46,8 @@ export default function NewPasswordPage() {
       {/* Left Side - Form */}
       <div className="w-full md:w-1/2 flex items-center justify-center p-6">
         <div className="w-full max-w-md">
-          <h2 className="text-2xl font-bold text-blue-600">Password Reset</h2>
-          <p className="text-gray-500">
+          <Title >Password Reset</Title>
+          <p className="text-blue-400">
             Secure Your Account With A New Password
           </p>
 
@@ -53,7 +56,7 @@ export default function NewPasswordPage() {
               onSubmit={handleSubmit(onSubmit)}
               className="w-full space-y-6"
             >
-              <Input
+              <InputText
                 label="New Password"
                 placeholder="**********"
                 type="password"
@@ -63,7 +66,7 @@ export default function NewPasswordPage() {
                 required
                 error={errors.password?.message}
               />
-              <Input
+              <InputText
                 label="Confirm Password"
                 placeholder="**********"
                 type="password"
@@ -74,12 +77,11 @@ export default function NewPasswordPage() {
                 error={errors.confirmPassword?.message}
               />
 
-              <button
+              <Button
                 type="submit"
-                className="w-full bg-blue-500 text-white py-3 rounded-lg text-lg hover:bg-blue-600 transition"
-              >
+                className="p-6">
                 Reset My Password
-              </button>
+              </Button>
             </form>
           </div>
 

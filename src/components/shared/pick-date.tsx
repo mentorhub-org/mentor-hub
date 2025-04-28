@@ -8,7 +8,7 @@ import { InputHTMLAttributes, useEffect, useState } from 'react'
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
   onChangeDate: (date: Date | undefined) => void
-  lable: string
+  label: string
   error?: string
   value?: string | Date
   defaultValue?: string | Date
@@ -22,7 +22,7 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
 }
 
 export default function PickDate({
-  lable,
+  label,
   onChangeDate,
   classNames,
   error,
@@ -51,9 +51,9 @@ export default function PickDate({
           'text-foreground text-sm font-medium',
           classNames?.label,
         )}>
-        {lable}
+        {label}
       </Label>
-      <DateInput className={cn('', classNames?.input)} />
+      <DateInput className={cn('w-full p-2 text-left border border-blue-500 rounded-sm focus:outline-none focus:ring focus:ring-blue-300 text-black', classNames?.input)} />
       {error && (
         <p
           className={cn(

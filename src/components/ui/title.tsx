@@ -9,7 +9,8 @@ export default function Title({ className, children }: Props) {
   return (
     <h3
       style={{
-        color: 'linear-gradient(55.08deg, #137BDD 20.31%, #4DB7FF 72.54%)',
+        backgroundImage: 'linear-gradient(55.08deg, #137BDD 20.31%, #4DB7FF 72.54%)',
+        backgroundClip: 'text',
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
       }}

@@ -2,6 +2,8 @@
 
 import PickDate from '@/components/shared/pick-date'
 import InputText from '@/components/shared/text-input'
+import { Button } from '@/components/ui/button'
+import Title from '@/components/ui/title'
 import { GITHUP, LINKEDIN } from '@/constants/icons'
 import { GOOGLE, LOGIN } from '@/constants/images'
 import * as authHandler from '@/lib/auth-handler'
@@ -22,6 +24,8 @@ export default function Register() {
   })
 
   const onSubmit = async (data: TRegister) => {
+    console.log(data);
+    
     await authHandler.signUpEmail(data)
   }
 
@@ -34,17 +38,18 @@ export default function Register() {
       <div className="flex w-full h-full bg-white">
         {/* Form Section */}
         <div className="w-full md:w-1/2 p-10 flex flex-col justify-center">
-          <h2 className="text-3xl font-bold text-blue-600 mb-2">
+          <Title>
+          {/* <Title className="text-3xl font-bold text-blue-600 mb-2"> */}
             Registration
-          </h2>
-          <p className="text-gray-500 mb-6">
+          </Title>
+          <p className="text-blue-400 mb-6">
             Join Mentorhub And Find Your Perfect Guide!
           </p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <div className="grid grid-cols-2 gap-4">
               <InputText
-                lable="Email"
+                label="Email"
                 placeholder="Someone@Example.Com"
                 type="email"
                 name="email"
@@ -53,7 +58,7 @@ export default function Register() {
                 error={errors.email?.message}
               />
               <InputText
-                lable="Phone"
+                label="Phone"
                 placeholder="E.G. 011 123 11 441"
                 type="text"
                 name="phone"
@@ -62,7 +67,7 @@ export default function Register() {
                 error={errors.phone?.message}
               />
               <InputText
-                lable="First Name"
+                label="First Name"
                 placeholder="Enter Your First Name"
                 type="text"
                 name="firstName"
@@ -71,7 +76,7 @@ export default function Register() {
                 error={errors.firstName?.message}
               />
               <InputText
-                lable="Last Name"
+                label="Last Name"
                 placeholder="Enter Your Last Name"
                 type="text"
                 name="lastName"
@@ -80,7 +85,7 @@ export default function Register() {
                 error={errors.lastName?.message}
               />
               <InputText
-                lable="Password"
+                label="Password"
                 placeholder="******"
                 type="password"
                 name="password"
@@ -89,7 +94,7 @@ export default function Register() {
                 error={errors.password?.message}
               />
               <InputText
-                lable="Repeat Password"
+                label="Repeat Password"
                 placeholder="******"
                 type="password"
                 name="repeatPassword"
@@ -98,7 +103,7 @@ export default function Register() {
                 error={errors.repeatPassword?.message}
               />
               <PickDate
-                lable="Date Of Birth"
+                label="Date Of Birth"
                 onChangeDate={onChangeBirthDate}
                 classNames={{
                   label: 'text-black mb-2',
@@ -114,11 +119,11 @@ export default function Register() {
                 <span className="text-blue-600">Terms And Privacy Policy</span>
               </p>
             </div>
-            <button
+            <Button
               type="submit"
-              className="w-full bg-blue-500 text-white py-3 rounded-lg text-lg hover:bg-blue-600 transition">
+              className="p-6">
               Register My Account
-            </button>
+            </Button>
           </form>
           <div className="flex flex-wrap justify-center gap-4 mt-4">
             <button

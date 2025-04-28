@@ -3,6 +3,8 @@ import { getProfile } from '@/services/profile'
 import Image from 'next/image'
 import Aside from './components/aside'
 import { reviews, skills } from './data'
+import { Button } from '@/components/ui/button'
+import Title from '@/components/ui/title'
 
 export default async function Profile() {
   const { session } = await getProfile()
@@ -21,9 +23,9 @@ export default async function Profile() {
       <div className="min-h-screen bg-white rounded-2xl m-3">
         <main className="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
           {/* About Me Section */}
-          <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-tr from-blue-500 to-blue-50  bg-clip-text text-transparent mb-4">
+          <Title>
             About Me
-          </h2>
+          </Title>
           <section className="bg-gradient p-6 sm:p-8 rounded-xl shadow-md">
             <p className="text-white text-sm sm:text-base leading-relaxed">
               Hey there! I’m Nour Mohamed, a passionate graphic designer &
@@ -44,9 +46,9 @@ export default async function Profile() {
 
           {/* Skills Section */}
           <section className="mt-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-blue-500 mb-4">
+            <Title>
               Skills
-            </h2>
+            </Title>
             <div className="flex flex-wrap gap-2 sm:gap-3">
               {skills.map((skill, index) => (
                 <span
@@ -60,9 +62,9 @@ export default async function Profile() {
 
           {/* Reviews Section */}
           <section className="mt-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-blue-500 mb-4">
+            <Title>
               Reviews
-            </h2>
+            </Title>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {/* Review Form */}
               <div className="bg-white p-6 rounded-xl shadow-md flex flex-col gap-4">
@@ -73,9 +75,9 @@ export default async function Profile() {
                   className="w-full h-24 p-3 bg-gray-100 rounded-lg outline-none text-gray-600 text-sm sm:text-base resize-none focus:ring-2 focus:ring-blue-300"
                   placeholder="Write your review here..."
                 />
-                <button className="px-4 py-2 bg-gradient text-white rounded-lg text-sm sm:text-base font-semibold hover:bg-blue-600 transition">
+                <Button >
                   Post Review
-                </button>
+                </Button>
               </div>
 
               {/* Review Cards */}

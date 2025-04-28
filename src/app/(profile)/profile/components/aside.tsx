@@ -1,4 +1,5 @@
  'use client'
+import { Button } from "@/components/ui/button";
  import { BE, DRI, FACEBOOKK, GITHUB, INSTAGRAM, LINKED, MAIL, MAP, MENU, PHONE, REFRESH, TELEGRAM, TICK, TICKA, TIMER, WHATSAPP } from "@/constants/icons";
 import { PROFILE } from "@/constants/images";
 import Image from "next/image";
@@ -25,12 +26,12 @@ export default function Aside() {
           </div>
           {/* Adjusted Buttons Section */}
           <div className="flex flex-col sm:flex-row gap-2 w-full mt-4">
-            <button className="text-nowrap p-2 flex-1 bg-gradient text-white  px-8 text-center rounded-lg text-sm font-semibold hover:bg-blue-600 transition duration-300">
+            <Button >
               Chat With Me
-            </button>
-            <button className="text-nowrap flex-1 bg-transparent border-2 border-blue-500 text-blue-500  px-8 rounded-lg text-sm font-semibold hover:bg-blue-50 transition duration-300">
+            </Button>
+            <Button variant={"secondary"}>
               Create Session
-            </button>
+            </Button>
           </div>
         </div>
 

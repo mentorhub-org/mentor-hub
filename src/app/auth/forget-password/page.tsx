@@ -1,5 +1,7 @@
 'use client'
 import InputText from '@/components/shared/text-input'
+import { Button } from '@/components/ui/button'
+import Title from '@/components/ui/title'
 import { SEND } from '@/constants/images'
 import {
   ForgetPasswordSchema,
@@ -27,14 +29,14 @@ export default function ForgetPassword() {
       <div className="flex w-full h-full bg-white shadow-lg">
         {/* Form Section */}
         <div className="w-full md:w-1/2 p-10 flex flex-col justify-center">
-          <h2 className="text-3xl font-bold text-blue-600 mb-2">
+          <Title>
             Password Recovery
-          </h2>
-          <p className="text-gray-500 mb-6">We&apos;ll Help You Reset It!</p>
+          </Title>
+          <p className="text-blue-400 mb-6">We&apos;ll Help You Reset It!</p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-6">
             <InputText
-              lable="Email"
+              label="Email"
               placeholder="Someone@Example.Com"
               type="email"
               name={'email'}
@@ -42,9 +44,9 @@ export default function ForgetPassword() {
               classNames={{ label: 'text-black mb-2' }}
               error={errors.email?.message}
             />
-            <button className="w-full bg-blue-500 text-white py-3 rounded-lg text-lg hover:bg-blue-600 transition">
+            <Button className='p-6'>
               Verify Email
-            </button>
+            </Button>
           </form>
           <p className="text-center text-gray-600 mt-4">
             Don&apos;t Have An Account?{' '}
