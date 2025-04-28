@@ -12,12 +12,10 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   if (protectedPaths.includes(pathname) && !session.data) {
-    console.log('protectedPaths.includes(pathname) && !session')
     return NextResponse.redirect(new URL('/auth/login', request.url))
   }
 
   if (pathname.startsWith('/auth') && session.data) {
-    console.log('pathname.startsWith("/auth") && session')
     return NextResponse.redirect(new URL('/', request.url))
   }
 
