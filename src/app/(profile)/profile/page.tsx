@@ -5,7 +5,7 @@ import Aside from './components/aside'
 import { reviews, skills } from './data'
 
 export default async function Profile() {
-  const { session, profile } = await getProfile()
+  const { session } = await getProfile()
 
   if (!session) {
     return <div>Not authenticated</div>
