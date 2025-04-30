@@ -24,8 +24,8 @@ export default function Register() {
   })
 
   const onSubmit = async (data: TRegister) => {
-    console.log(data);
-    
+    console.log(data)
+
     await authHandler.signUpEmail(data)
   }
 
@@ -39,10 +39,10 @@ export default function Register() {
         {/* Form Section */}
         <div className="w-full md:w-1/2 p-10 flex flex-col justify-center">
           <Title>
-          {/* <Title className="text-3xl font-bold text-blue-600 mb-2"> */}
+            {/* <Title className="text-3xl font-bold text-blue-600 mb-2"> */}
             Registration
           </Title>
-          <p className="text-blue-400 mb-6">
+          <p className="text-lightblue mb-6">
             Join Mentorhub And Find Your Perfect Guide!
           </p>
 
@@ -119,16 +119,14 @@ export default function Register() {
                 <span className="text-blue-600">Terms And Privacy Policy</span>
               </p>
             </div>
-            <Button
-              type="submit"
-              className="p-6">
+            <Button type="submit" className="p-6">
               Register My Account
             </Button>
           </form>
           <div className="flex flex-wrap justify-center gap-4 mt-4">
             <button
               onClick={authHandler.signInLinkedIn}
-              className="flex items-center justify-center w-full sm:w-auto border border-blue-500 px-6 py-2 rounded-lg text-black hover:bg-blue-100 hover:text-blue-500 hover:shadow-md transition hover:scale-105 hover:cursor-pointer">
+              className="flex items-center justify-center w-full sm:w-auto border border-darkblue px-6 py-2 rounded-lg text-black hover:bg-blue-100 hover:text-blue-500 hover:shadow-md transition hover:scale-105 hover:cursor-pointer">
               LinkedIn
               <Image
                 src={LINKEDIN}
@@ -138,7 +136,7 @@ export default function Register() {
             </button>
             <button
               onClick={authHandler.signInGoogle}
-              className="flex items-center justify-center w-full sm:w-auto border border-blue-500 px-6 py-2 rounded-lg text-black hover:bg-blue-100 hover:text-blue-500 hover:shadow-md transition hover:scale-105 hover:cursor-pointer">
+              className="flex items-center justify-center w-full sm:w-auto border border-darkblue  px-6 py-2 rounded-lg text-black hover:bg-blue-100 hover:text-blue-500 hover:shadow-md transition hover:scale-105 hover:cursor-pointer">
               Google
               <Image
                 src={GOOGLE}
@@ -148,7 +146,7 @@ export default function Register() {
             </button>
             <button
               onClick={authHandler.signInGithub}
-              className="flex items-center justify-center w-full sm:w-auto border border-blue-500 px-6 py-2 rounded-lg text-black hover:bg-blue-100 hover:text-blue-500 hover:shadow-md transition hover:scale-105 hover:cursor-pointer">
+              className="flex items-center justify-center w-full sm:w-auto border border-darkblue  px-6 py-2 rounded-lg text-black hover:bg-blue-100 hover:text-blue-500 hover:shadow-md transition hover:scale-105 hover:cursor-pointer">
               Github
               <Image
                 src={GITHUP}
@@ -160,7 +158,7 @@ export default function Register() {
 
           <p className="text-center text-gray-600 mt-4">
             Already Have An Account?{' '}
-            <Link href="/auth/login" className="text-blue-500 hover:underline">
+            <Link href="/auth/login" className="text-darkblue  hover:underline">
               Login instead
             </Link>
           </p>

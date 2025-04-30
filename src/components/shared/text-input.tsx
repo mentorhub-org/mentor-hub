@@ -45,7 +45,7 @@ export default function InputText<T>({
           id={id}
           type={type === 'password' ? (isVisible ? 'text' : 'password') : type}
           className={cn(
-            'w-full p-2 text-left border border-blue-500 rounded-sm focus:outline-none focus:ring focus:ring-blue-300 text-black',
+            'w-full p-2 text-left border border-darkblue rounded-sm focus:outline-none focus:ring focus:ring-lightblue text-black',
             error &&
               'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/20',
             classNames?.input,
@@ -58,7 +58,7 @@ export default function InputText<T>({
         {type === 'password' && (
           <button
             className={cn(
-              'absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-lg text-black outline-offset-2 transition-colors hover:text-muted-foreground/80 cursor-pointer focus:z-10 focus-visible:outline-2 focus-visible:outline-ring/70 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',
+              'absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-lg text-dark outline-offset-2 transition-colors hover:text-muted-foreground/80 cursor-pointer focus:z-10 focus-visible:outline-2 focus-visible:outline-ring/70 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',
               classNames?.button,
             )}
             type="button"

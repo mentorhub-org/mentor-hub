@@ -1,4 +1,4 @@
-import Navbar from '@/components/navbar'
+import SettingsAside from './components/aside'
 
 export const metadata = {
   title: 'Mentor Hub',
@@ -11,9 +11,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <body className="container mx-auto" suppressHydrationWarning>
-      <Navbar />
+    <div className="flex bg-gray-100 p-4">
+      <SettingsAside />
       {children}
-    </body>
+    </div>
   )
 }

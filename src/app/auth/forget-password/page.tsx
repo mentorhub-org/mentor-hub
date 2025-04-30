@@ -29,10 +29,8 @@ export default function ForgetPassword() {
       <div className="flex w-full h-full bg-white shadow-lg">
         {/* Form Section */}
         <div className="w-full md:w-1/2 p-10 flex flex-col justify-center">
-          <Title>
-            Password Recovery
-          </Title>
-          <p className="text-blue-400 mb-6">We&apos;ll Help You Reset It!</p>
+          <Title>Password Recovery</Title>
+          <p className="text-lightblue mb-6">We&apos;ll Help You Reset It!</p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-6">
             <InputText
@@ -44,20 +42,18 @@ export default function ForgetPassword() {
               classNames={{ label: 'text-black mb-2' }}
               error={errors.email?.message}
             />
-            <Button className='p-6'>
-              Verify Email
-            </Button>
+            <Button className="p-6">Verify Email</Button>
           </form>
           <p className="text-center text-gray-600 mt-4">
             Don&apos;t Have An Account?{' '}
-            <Link href="/register" className="text-blue-500 hover:underline">
+            <Link href="/register" className="text-darkblue hover:underline">
               Create A New Account
             </Link>
           </p>
         </div>
 
         {/* Image Section */}
-        <div className="hidden md:flex w-1/2 items-center justify-center bg-blue-100">
+        <div className="hidden md:flex w-1/2 items-center justify-center bg-light">
           <Image
             className="w-full h-full object-cover"
             src={SEND}

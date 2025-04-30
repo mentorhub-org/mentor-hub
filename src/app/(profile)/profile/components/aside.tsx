@@ -1,8 +1,25 @@
- 'use client'
-import { Button } from "@/components/ui/button";
- import { BE, DRI, FACEBOOKK, GITHUB, INSTAGRAM, LINKED, MAIL, MAP, MENU, PHONE, REFRESH, TELEGRAM, TICK, TICKA, TIMER, WHATSAPP } from "@/constants/icons";
-import { PROFILE } from "@/constants/images";
-import Image from "next/image";
+'use client'
+import { Button } from '@/components/ui/button'
+import {
+  BE,
+  DRI,
+  FACEBOOKK,
+  GITHUB,
+  INSTAGRAM,
+  LINKED,
+  MAIL,
+  MAP,
+  MENU,
+  PHONE,
+  REFRESH,
+  TELEGRAM,
+  TICK,
+  TICKA,
+  TIMER,
+  WHATSAPP,
+} from '@/constants/icons'
+import { PROFILE } from '@/constants/images'
+import Image from 'next/image'
 
 export default function Aside() {
   return (
@@ -15,29 +32,29 @@ export default function Aside() {
             alt="Profile"
             className="rounded-full mx-auto w-24 h-24 md:w-32 md:h-32 object-cover"
           />
-          <h2 className="text-2xl font-bold mt-4 text-gray-800">Nour Mohamed</h2>
-          <p className="text-blue-500 font-medium">UI/UX Designer</p>
+          <h2 className="text-2xl font-bold mt-4 text-gray-800">
+            Nour Mohamed
+          </h2>
+          <p className="text-darkblue font-medium">UI/UX Designer</p>
           <p className="text-gray-500 text-sm">ID: 123456789</p>
           <div className="flex justify-center items-center mt-3">
             {[...Array(5)].map((_, i) => (
-              <span key={i} className="text-yellow-400 text-lg">★</span>
+              <span key={i} className="text-yellow-400 text-lg">
+                ★
+              </span>
             ))}
             <span className="ml-2 text-gray-600 font-medium">4.5</span>
           </div>
           {/* Adjusted Buttons Section */}
           <div className="flex flex-col sm:flex-row gap-2 w-full mt-4">
-            <Button >
-              Chat With Me
-            </Button>
-            <Button variant={"secondary"}>
-              Create Session
-            </Button>
+            <Button>Chat With Me</Button>
+            <Button variant={'secondary'}>Create Session</Button>
           </div>
         </div>
 
         {/* About Section */}
         <div className="mt-8 w-full">
-          <h3 className="text-blue-500 font-bold text-lg">About</h3>
+          <h3 className="text-darkbluefont-bold text-lg">About</h3>
           <div className="mt-4 space-y-3">
             <p className="flex items-center space-x-2 text-gray-600">
               <Image src={PHONE} alt="Phone" className="w-5 h-5" />
@@ -66,7 +83,9 @@ export default function Aside() {
 
         {/* Mentorship Sessions Section */}
         <div className="mt-6 w-full">
-          <h3 className="text-blue-500 font-bold text-lg">Mentorship Sessions</h3>
+          <h3 className="text-darkblue font-bold text-lg">
+            Mentorship Sessions
+          </h3>
           <div className="mt-4 space-y-3">
             <p className="flex items-center space-x-2 text-gray-600">
               <Image src={REFRESH} alt="Ongoing Sessions" className="w-5 h-5" />
@@ -80,7 +99,9 @@ export default function Aside() {
             </p>
             <p className="flex items-center space-x-2 text-gray-600">
               <Image src={TICK} alt="Unfinished Sessions" className="w-5 h-5" />
-              <span className="text-gray-400 text-sm">Unfinished Sessions:</span>
+              <span className="text-gray-400 text-sm">
+                Unfinished Sessions:
+              </span>
               <span className="text-sm">3</span>
             </p>
             <p className="flex items-center space-x-2 text-gray-600">
@@ -95,17 +116,16 @@ export default function Aside() {
 
         {/* Links Section */}
         <div className="mt-6 w-full">
-          <h3 className="text-blue-500 font-bold text-lg">Links</h3>
+          <h3 className="text-darkblue font-bold text-lg">Links</h3>
           <div className="mt-4 space-y-3">
             <p className="flex items-center space-x-2 text-gray-600">
               <Image src={LINKED} alt="LinkedIn" className="w-5 h-5" />
               <span className="text-gray-400 text-sm">LinkedIn:</span>
               <a
-                className="text-blue-500 text-sm hover:underline"
+                className="text-darkblue text-sm hover:underline"
                 href="https://linkedin.com/in/nourmohamed"
                 target="_blank"
-                rel="noopener noreferrer"
-              >
+                rel="noopener noreferrer">
                 linkedin.com/in/nourmohamed
               </a>
             </p>
@@ -113,11 +133,10 @@ export default function Aside() {
               <Image src={GITHUB} alt="GitHub" className="w-5 h-5" />
               <span className="text-gray-400 text-sm">GitHub:</span>
               <a
-                className="text-blue-500 text-sm hover:underline"
+                className="text-darkblue text-sm hover:underline"
                 href="https://github.com/nourmohamed"
                 target="_blank"
-                rel="noopener noreferrer"
-              >
+                rel="noopener noreferrer">
                 github.com/nourmohamed
               </a>
             </p>
@@ -125,11 +144,10 @@ export default function Aside() {
               <Image src={BE} alt="Behance" className="w-5 h-5" />
               <span className="text-gray-400 text-sm">Behance:</span>
               <a
-                className="text-blue-500 text-sm hover:underline"
+                className="text-darkblue text-sm hover:underline"
                 href="https://behance.net/nourmohamed"
                 target="_blank"
-                rel="noopener noreferrer"
-              >
+                rel="noopener noreferrer">
                 behance.net/nourmohamed
               </a>
             </p>
@@ -137,11 +155,10 @@ export default function Aside() {
               <Image src={DRI} alt="Dribbble" className="w-5 h-5" />
               <span className="text-gray-400 text-sm">Dribbble:</span>
               <a
-                className="text-blue-500 text-sm hover:underline"
+                className="text-darkblue text-sm hover:underline"
                 href="https://dribbble.com/nourmohamed"
                 target="_blank"
-                rel="noopener noreferrer"
-              >
+                rel="noopener noreferrer">
                 dribbble.com/nourmohamed
               </a>
             </p>
@@ -152,33 +169,29 @@ export default function Aside() {
 
         {/* Connect Me Section */}
         <div className="mt-6 w-full">
-          <h3 className="text-blue-500 font-bold text-lg">Connect Me</h3>
+          <h3 className="text-darkblue font-bold text-lg">Connect Me</h3>
           <div className="mt-4 flex justify-center space-x-6">
             <a
               href="#"
-              className="flex flex-col items-center text-blue-500 hover:text-blue-600 transition"
-            >
+              className="flex flex-col items-center text-darkblue hover:text-blue-600 transition">
               <Image src={FACEBOOKK} alt="Facebook" className="w-6 h-6" />
               <span className="text-sm mt-1">Facebook</span>
             </a>
             <a
               href="#"
-              className="flex flex-col items-center text-pink-500 hover:text-pink-600 transition"
-            >
+              className="flex flex-col items-center text-pink-500 hover:text-pink-600 transition">
               <Image src={INSTAGRAM} alt="Instagram" className="w-6 h-6" />
               <span className="text-sm mt-1">Instagram</span>
             </a>
             <a
               href="#"
-              className="flex flex-col items-center text-blue-400 hover:text-blue-500 transition"
-            >
+              className="flex flex-col items-center text-lightblue hover:text-blue-500 transition">
               <Image src={TELEGRAM} alt="Telegram" className="w-6 h-6" />
               <span className="text-sm mt-1">Telegram</span>
             </a>
             <a
               href="#"
-              className="flex flex-col items-center text-green-500 hover:text-green-600 transition"
-            >
+              className="flex flex-col items-center text-green-500 hover:text-green-600 transition">
               <Image src={WHATSAPP} alt="WhatsApp" className="w-6 h-6" />
               <span className="text-sm mt-1">WhatsApp</span>
             </a>
@@ -186,5 +199,5 @@ export default function Aside() {
         </div>
       </div>
     </aside>
-);
+  )
 }

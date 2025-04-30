@@ -29,7 +29,7 @@ export default function Login() {
         <div className="w-full md:w-1/2 flex flex-col justify-center px-8 md:px-16 lg:px-24">
           <Title>Login To Mentorhub</Title>
           <Title className="text-3xl font-bold text-black mb-2" />
-          <p className="text-lg text-blue-400 mb-6">
+          <p className="text-lg text-lightblue mb-6">
             Your Journey Resumes Here!
           </p>
 
@@ -62,8 +62,7 @@ export default function Login() {
               </Link>
             </div>
 
-            <Button
-              type="submit" className='p-6'>
+            <Button type="submit" className="p-6">
               Login
             </Button>
 
@@ -71,7 +70,7 @@ export default function Login() {
               Don&apos;t Have An Account?{' '}
               <Link
                 href="/auth/register"
-                className="text-blue-500 hover:underline">
+                className="text-darkblue hover:underline">
                 Create A New Account
               </Link>
             </p>
@@ -79,7 +78,7 @@ export default function Login() {
           <div className="flex flex-wrap justify-center gap-4 mt-4">
             <button
               onClick={authHandler.signInLinkedIn}
-              className="flex cursor-pointer items-center justify-center w-full sm:w-auto border border-blue-500 px-6 py-2 rounded-lg text-black">
+              className="flex cursor-pointer items-center justify-center w-full sm:w-auto border border-darkblue px-6 py-2 rounded-lg text-black">
               LinkedIn
               <Image
                 src={LINKEDIN}
@@ -89,7 +88,7 @@ export default function Login() {
             </button>
             <button
               onClick={authHandler.signInGoogle}
-              className="flex items-center justify-center w-full sm:w-auto border border-blue-500 px-6 py-2 rounded-lg text-black">
+              className="flex items-center justify-center w-full sm:w-auto border border-darkblue px-6 py-2 rounded-lg text-black">
               Google
               <Image
                 src={GOOGLE}
@@ -99,7 +98,7 @@ export default function Login() {
             </button>
             <button
               onClick={authHandler.signInGithub}
-              className="flex items-center justify-center w-full sm:w-auto border border-blue-500 px-6 py-2 rounded-lg text-black">
+              className="flex items-center justify-center w-full sm:w-auto border border-darkblue px-6 py-2 rounded-lg text-black">
               Github
               <Image
                 src={GITHUP}

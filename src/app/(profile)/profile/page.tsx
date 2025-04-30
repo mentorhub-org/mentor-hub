@@ -1,10 +1,10 @@
+import { Button } from '@/components/ui/button'
+import Title from '@/components/ui/title'
 import { FACECARDE } from '@/constants/images'
 import { getProfile } from '@/services/profile'
 import Image from 'next/image'
 import Aside from './components/aside'
 import { reviews, skills } from './data'
-import { Button } from '@/components/ui/button'
-import Title from '@/components/ui/title'
 
 export default async function Profile() {
   const { session } = await getProfile()
@@ -23,9 +23,7 @@ export default async function Profile() {
       <div className="min-h-screen bg-white rounded-2xl m-3">
         <main className="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
           {/* About Me Section */}
-          <Title>
-            About Me
-          </Title>
+          <Title>About Me</Title>
           <section className="bg-gradient p-6 sm:p-8 rounded-xl shadow-md">
             <p className="text-white text-sm sm:text-base leading-relaxed">
               Hey there! I’m Nour Mohamed, a passionate graphic designer &
@@ -46,14 +44,12 @@ export default async function Profile() {
 
           {/* Skills Section */}
           <section className="mt-8">
-            <Title>
-              Skills
-            </Title>
+            <Title>Skills</Title>
             <div className="flex flex-wrap gap-2 sm:gap-3">
               {skills.map((skill, index) => (
                 <span
                   key={index}
-                  className="bg-blue-100 text-blue-800 text-xs sm:text-sm font-medium px-3 py-2 rounded-xl border border-blue-300 hover:bg-blue-200 transition">
+                  className="bg-blue-100 text-darkblue text-xs sm:text-sm font-medium px-3 py-2 rounded-xl border border-blue-300 hover:bg-blue-200 transition">
                   {skill}
                 </span>
               ))}
@@ -62,9 +58,7 @@ export default async function Profile() {
 
           {/* Reviews Section */}
           <section className="mt-8">
-            <Title>
-              Reviews
-            </Title>
+            <Title>Reviews</Title>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {/* Review Form */}
               <div className="bg-white p-6 rounded-xl shadow-md flex flex-col gap-4">
@@ -75,9 +69,7 @@ export default async function Profile() {
                   className="w-full h-24 p-3 bg-gray-100 rounded-lg outline-none text-gray-600 text-sm sm:text-base resize-none focus:ring-2 focus:ring-blue-300"
                   placeholder="Write your review here..."
                 />
-                <Button >
-                  Post Review
-                </Button>
+                <Button>Post Review</Button>
               </div>
 
               {/* Review Cards */}
