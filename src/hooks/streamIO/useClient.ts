@@ -4,27 +4,21 @@ import { StreamChat, TokenProvider, User } from 'stream-chat'
 export type UseClientOptions = {
   apiKey: string
   user: User
-  tokenProvider?: TokenProvider
+  token?: TokenProvider
 }
 
-export const useClient = ({
-  apiKey,
-  user,
-  tokenProvider,
-}: UseClientOptions) => {
+export const useClient = ({ apiKey, user, token }: UseClientOptions) => {
   const [client, setClient] = useState<StreamChat | null>(null)
 
   useEffect(() => {
     const client = new StreamChat(apiKey)
     let didUserConnectInterrupt = false
 
-    const connectionPromise = client
-      .connectUser(user, tokenProvider)
-      .then(() => {
-        if (!didUserConnectInterrupt) {
-          setClient(client)
-        }
-      })
+    const connectionPromise = client.connectUser(user, token).then(() => {
+      if (!didUserConnectInterrupt) {
+        setClient(client)
+      }
+    })
 
     return () => {
       didUserConnectInterrupt = true
@@ -44,7 +38,7 @@ export const useClient = ({
         client.disconnectUser()
       }
     }
-  }, [apiKey, user, tokenProvider])
+  }, [apiKey, user, token])
 
   return client
 }

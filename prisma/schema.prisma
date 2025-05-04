@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -8,22 +9,23 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(uuid())
-  name          String
-  email         String
-  emailVerified Boolean
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  role          String?
-  banned        Boolean?
-  banReason     String?
-  banExpires    DateTime?
-  dateOfBirth   DateTime
-  phone         String
-  profile       Profile?
-  sessions      Session[]
-  accounts      Account[]
+  id               String    @id @default(uuid())
+  name             String
+  email            String
+  emailVerified    Boolean
+  image            String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  role             String?
+  banned           Boolean?
+  banReason        String?
+  banExpires       DateTime?
+  dateOfBirth      DateTime
+  phone            String
+  streamRegistered Boolean?  @default(false)
+  profile          Profile?
+  sessions         Session[]
+  accounts         Account[]
 
   @@unique([email])
   @@map("user")

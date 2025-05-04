@@ -1,23 +1,26 @@
 'use client'
 
 import { useSession } from '@/hooks/useSession'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { User } from 'stream-chat'
 import { LoadingIndicator } from 'stream-chat-react'
+import MyChat from './components/my-chat'
 
-type HomeState = {
+export type HomeState = {
   apiKey: string
   user: User
-  token: string
+  token: () => Promise<string>
 }
 
-export default function Home() {
+export default function DiscordTest() {
   const [homeState, setHomeState] = useState<HomeState>()
   const { data, error, isLoading } = useSession()
-
   const registerUser = useCallback(
-    async function registerUser() {
-      if (!data?.session.userId || data?.user.email) return
+    async function () {
+      if (!data?.session.userId || !data?.user.email) {
+        console.error('No user id or email found')
+        return
+      }
       const response = await fetch('/api/register-user', {
         method: 'POST',
         headers: {
@@ -28,13 +31,14 @@ export default function Home() {
           email: data?.user.email,
         }),
       })
-      const responseBody = response.json()
+      const responseBody = await response.json()
+
       return responseBody
     },
     [data?.session.userId, data?.user.email],
   )
 
-  async function getToken() {
+  const getToken = useCallback(async () => {
     const response = await fetch('/api/get-token', {
       method: 'POST',
       headers: {
@@ -42,10 +46,13 @@ export default function Home() {
       },
       body: JSON.stringify({
         userId: data?.session.userId,
+        email: data?.user.email,
       }),
     })
-    const responseBody = response.json()
+    const responseBody = await response.json()
     const token = responseBody.token
+    console.log('token', token)
+    console.log('responseBody', responseBody)
 
     if (!token) {
       console.error('No token found')
@@ -65,7 +72,7 @@ export default function Home() {
         `https://getstream.io/random_png/?id=${data.user.id}&name=${data.user.name}`,
     }
 
-    const apikey = process.env.STREAM_API_KEY
+    const apikey = process.env.NEXT_PUBLIC_STREAM_API_KEY
 
     if (!apikey) {
       console.error('No API key found')
@@ -77,13 +84,36 @@ export default function Home() {
       user: user,
       token: token,
     })
-  }
+  }, [
+    data?.session.userId,
+    data?.user.email,
+    data?.user.name,
+    data?.user.image,
+    data?.user.id,
+  ])
 
-  if (!isLoading || !homeState) {
-    return <LoadingIndicator />
+  useEffect(() => {
+    if (data?.session.userId) {
+      registerUser().then(() => {
+        getToken()
+      })
+    }
+  }, [
+    data?.session.userId,
+    data?.user?.streamRegistered,
+    getToken,
+    registerUser,
+  ])
+
+  if (isLoading || !homeState) {
+    return (
+      <main className="flex justify-center w-full items-center h-screen bg-gray-100">
+        <LoadingIndicator />
+      </main>
+    )
   } else if (error) {
     return <div>error</div>
   }
 
-  return <div>welcome to discord</div>
+  return <MyChat {...homeState} />
 }

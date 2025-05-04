@@ -9,7 +9,10 @@ export const signUpEmail = async (data: Register) => {
 
   const { firstName, lastName, ...rest } = data
   auth.api.signUpEmail({
-    body: { ...rest, name: `${firstName} ${lastName}` },
+    body: {
+      ...rest,
+      name: `${firstName} ${lastName}`,
+    },
   })
 }
 

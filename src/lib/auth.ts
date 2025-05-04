@@ -29,6 +29,11 @@ export const auth = betterAuth({
         type: 'string',
         required: true,
       },
+      streamRegistered: {
+        type: 'boolean',
+        defaultValue: false,
+        required: false,
+      },
     },
   },
   emailVerification: {
