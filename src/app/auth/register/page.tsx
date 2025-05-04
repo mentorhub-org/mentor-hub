@@ -18,6 +18,7 @@ export default function Register() {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<TRegister>({
     resolver: zodResolver(RegisterSchema),

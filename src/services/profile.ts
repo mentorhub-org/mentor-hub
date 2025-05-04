@@ -1,15 +1,25 @@
 'use server'
 
 import prisma from '@/db/prisma'
-import { auth } from '@/lib/auth'
-import { headers } from 'next/headers'
+import type { Profile } from '@prisma/client'
+import { getAuth } from './auth'
 
 export const getProfile = async () => {
-  const session = await auth.api.getSession({ headers: await headers() })
+  const user = await getAuth()
 
-  const profile = await prisma.profile.findUnique({
-    where: { userId: session?.user.id },
+  return await prisma.profile.findUnique({
+    where: { userId: user.id },
   })
+}
 
-  return { profile, session }
+export const updateProfile = async (data: Partial<Profile>) => {
+  const user = await getAuth()
+
+  if (!user) throw new Error('Unauthorized')
+  if (!data) throw new Error('No data provided')
+
+  await prisma.profile.update({
+    where: { userId: user.id },
+    data,
+  })
 }

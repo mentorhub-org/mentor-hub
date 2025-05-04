@@ -1,19 +1,19 @@
 import { Button } from '@/components/ui/button'
 import Title from '@/components/ui/title'
 import { FACECARDE } from '@/constants/images'
-import { getProfile } from '@/services/profile'
+import { getAuth } from '@/services/auth'
 import Image from 'next/image'
 import Aside from './components/aside'
 import { reviews, skills } from './data'
 
 export default async function Profile() {
-  const { session } = await getProfile()
+  const user = await getAuth()
 
-  if (!session) {
+  if (!user) {
     return <div>Not authenticated</div>
   }
 
-  if (!session.user.emailVerified) {
+  if (!user.emailVerified) {
     return <div>Please verify your email</div>
   }
 

@@ -35,6 +35,7 @@ model Profile {
   id          String   @id @default(uuid())
   userId      String   @unique
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gender      String?
   name        String
   imgUrl      String?  @db.Text
   phone       String
@@ -44,6 +45,7 @@ model Profile {
   dateOfBirth DateTime
   about       String?
   skills      String?
+  availableForMentoring Boolean? @default(false)
 
   servers  Server[]
   member   Member[]

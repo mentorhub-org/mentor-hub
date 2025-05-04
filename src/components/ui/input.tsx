@@ -17,7 +17,7 @@ function Input({
         className,
       )}
       placeholder={placeholder}
-      // {...props}
+      {...props}
     />
   )
 }

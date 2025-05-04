@@ -1,10 +1,10 @@
 'use client'
 
-import { cn } from '@/lib/utils'
-import { Label } from '../ui/label'
-
 import { DateField, DateInput } from '@/components/ui/datefield-rac'
+import { cn } from '@/lib/utils'
+import { CalendarDate } from '@internationalized/date'
 import { InputHTMLAttributes, useEffect, useState } from 'react'
+import { Label } from '../ui/label'
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
   onChangeDate: (date: Date | undefined) => void
@@ -21,6 +21,20 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   }
 }
 
+// Helper function to convert Date to CalendarDate
+const dateToCalendarDate = (date: Date): CalendarDate => {
+  return new CalendarDate(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    date.getDate(),
+  )
+}
+
+// Helper function to convert CalendarDate to Date
+const calendarDateToDate = (calendarDate: CalendarDate): Date => {
+  return new Date(calendarDate.year, calendarDate.month - 1, calendarDate.day)
+}
+
 export default function PickDate({
   label,
   onChangeDate,
@@ -28,24 +42,35 @@ export default function PickDate({
   error,
   defaultValue,
 }: Props) {
-  const [date, setDate] = useState<Date | undefined>(
-    defaultValue ? new Date(defaultValue) : undefined,
-  )
+  // Convert default date to CalendarDate
+  const defaultCalendarDate = defaultValue
+    ? dateToCalendarDate(new Date(defaultValue))
+    : dateToCalendarDate(new Date())
+
+  const [calendarDate, setCalendarDate] =
+    useState<CalendarDate>(defaultCalendarDate)
 
   // Sync date with onChangeDate prop
   useEffect(() => {
-    onChangeDate(date)
-  }, [date, onChangeDate])
+    onChangeDate(calendarDateToDate(calendarDate))
+  }, [calendarDate, onChangeDate])
 
   // Sync date with defaultValue prop
   useEffect(() => {
-    setDate(defaultValue ? new Date(defaultValue) : undefined)
+    if (defaultValue) {
+      setCalendarDate(dateToCalendarDate(new Date(defaultValue)))
+    }
   }, [defaultValue])
 
   return (
     <DateField
       className={cn('*:not-first:mt-2', classNames?.container)}
-      onChange={e => e && onChangeDate(new Date(e.toDate('America/New_York')))}>
+      onChange={date => {
+        if (date) {
+          setCalendarDate(date)
+        }
+      }}
+      value={calendarDate}>
       <Label
         className={cn(
           'text-foreground text-sm font-medium',
@@ -53,7 +78,12 @@ export default function PickDate({
         )}>
         {label}
       </Label>
-      <DateInput className={cn('w-full p-2 text-left border border-blue-500 rounded-sm focus:outline-none focus:ring focus:ring-blue-300 text-black', classNames?.input)} />
+      <DateInput
+        className={cn(
+          'w-full p-2 text-left border border-blue-500 rounded-sm focus:outline-none focus:ring focus:ring-blue-300 text-black',
+          classNames?.input,
+        )}
+      />
       {error && (
         <p
           className={cn(
