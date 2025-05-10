@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'w-full text-nowrap p-2 flex-1 bg-gradient text-white  px-8 text-center rounded-lg text-sm font-semibold hover:bg-darkblue transition duration-300',
+          'w-full text-nowrap p-2 flex-1 bg-gradient border-y-2 border-transparent text-white  px-8 text-center rounded-lg text-sm font-semibold hover:bg-darkblue transition duration-300',
         secondary:
           'w-full text-nowrap flex-1 bg-transparent border-2 border-darkblue text-darkblue  px-8 rounded-lg text-sm font-semibold hover:bg-light transition duration-300',
         outline:

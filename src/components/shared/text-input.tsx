@@ -38,11 +38,13 @@ export default function InputText<T>({
 
   const toggleVisibility = () => setIsVisible(prevState => !prevState)
   return (
-    <div className={cn('space-y-1', classNames?.container)}>
-      <Label htmlFor={id} className={cn('font-bold', classNames?.label)}>
+    <div className={cn('space-y-1 w-full', classNames?.container)}>
+      <Label
+        htmlFor={id}
+        className={cn('font-bold', !label && 'hidden', classNames?.label)}>
         {label}
       </Label>
-      <div className="relative">
+      <div className="relative h-full w-full">
         <Input
           id={id}
           type={type === 'password' ? (isVisible ? 'text' : 'password') : type}

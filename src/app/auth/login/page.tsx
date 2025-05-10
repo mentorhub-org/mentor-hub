@@ -7,19 +7,29 @@ import { GITHUP, LINKEDIN } from '@/constants/icons'
 import { GOOGLE, LOGIN } from '@/constants/images'
 import * as authHandler from '@/lib/auth-handler'
 import { Login as TLogin } from '@/schema/auth'
+import { Loader2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 export default function Login() {
+  const [isLoading, setIsLoading] = useState(false)
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TLogin>()
 
-  const onSubmit: SubmitHandler<TLogin> = data => {
-    authHandler.signInFn(data)
+  const onSubmit: SubmitHandler<TLogin> = async data => {
+    try {
+      setIsLoading(true)
+      await authHandler.signInFn(data)
+    } catch (error) {
+      console.error('Login error:', error)
+    } finally {
+      setIsLoading(false)
+    }
   }
   return (
     <div className="flex w-full h-screen items-center justify-center">
@@ -56,14 +66,26 @@ export default function Login() {
 
             <div className="">
               <Link
-                href="/forget-password"
+                href="/auth/forget-password"
                 className="text-blue-500 hover:underline">
                 Forgot Your Password?
               </Link>
             </div>
 
-            <Button type="submit" className="p-6">
-              Login
+            <Button
+              type="submit"
+              variant="default"
+              size="lg"
+              className="w-full min-h-[3.5rem] text-lg font-semibold"
+              disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  Logging in...
+                </>
+              ) : (
+                'Login'
+              )}
             </Button>
 
             <p className="text-center text-gray-600 mt-4">

@@ -1,3 +1,5 @@
+'use server'
+
 import prisma from '@/db/prisma'
 import { auth } from '@/lib/auth'
 import { headers } from 'next/headers'

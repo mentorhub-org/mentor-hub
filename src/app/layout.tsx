@@ -42,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${cairo.variable} antialiased container mx-auto`}
+        className={`${cairo.variable} antialiased bg-light`}
         suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>

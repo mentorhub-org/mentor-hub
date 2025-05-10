@@ -16,7 +16,7 @@ export default function Title({ className, children }: Props) {
         WebkitTextFillColor: 'transparent',
       }}
       className={cn(
-        'text-2xl sm:text-3xl font-bold bg-gradient-to-tr from-darkblue to-light  bg-clip-text text-transparent mb-4',
+        'text-2xl sm:text-3xl font-bold bg-gradient-to-tr from-darkblue to-light  bg-clip-text text-transparent mb-2',
         className,
       )}>
       {children}

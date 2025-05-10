@@ -26,7 +26,7 @@ export default function ForgetPassword() {
   }
   return (
     <main className="flex h-screen w-screen items-center justify-center bg-blue-50">
-      <div className="flex w-full h-full bg-white shadow-lg">
+      <div className="flex w-full h-full bg-white">
         {/* Form Section */}
         <div className="w-full md:w-1/2 p-10 flex flex-col justify-center">
           <Title>Password Recovery</Title>
@@ -46,7 +46,9 @@ export default function ForgetPassword() {
           </form>
           <p className="text-center text-gray-600 mt-4">
             Don&apos;t Have An Account?{' '}
-            <Link href="/register" className="text-darkblue hover:underline">
+            <Link
+              href="/auth/register"
+              className="text-darkblue hover:underline">
               Create A New Account
             </Link>
           </p>

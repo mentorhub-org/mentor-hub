@@ -11,9 +11,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <body className="container mx-auto" suppressHydrationWarning>
+    <main className="container mx-auto">
       <Navbar />
       {children}
-    </body>
+    </main>
   )
 }

@@ -41,35 +41,41 @@ export default function PickDate({
   classNames,
   error,
   defaultValue,
+  value,
 }: Props) {
-  // Convert default date to CalendarDate
-  const defaultCalendarDate = defaultValue
-    ? dateToCalendarDate(new Date(defaultValue))
-    : dateToCalendarDate(new Date())
+  // Use value prop if provided, otherwise use defaultValue
+  const initialDate = value || defaultValue
+  
+  // Convert initial date to CalendarDate only if a date is provided
+  const [calendarDate, setCalendarDate] = useState<CalendarDate | null>(
+    initialDate ? dateToCalendarDate(new Date(initialDate)) : null
+  )
 
-  const [calendarDate, setCalendarDate] =
-    useState<CalendarDate>(defaultCalendarDate)
-
-  // Sync date with onChangeDate prop
+  // Update calendarDate when value prop changes
   useEffect(() => {
-    onChangeDate(calendarDateToDate(calendarDate))
-  }, [calendarDate, onChangeDate])
-
-  // Sync date with defaultValue prop
-  useEffect(() => {
-    if (defaultValue) {
-      setCalendarDate(dateToCalendarDate(new Date(defaultValue)))
+    if (value) {
+      const newCalendarDate = dateToCalendarDate(new Date(value))
+      // Only update if different to avoid infinite loops
+      if (!calendarDate || newCalendarDate.compare(calendarDate) !== 0) {
+        setCalendarDate(newCalendarDate)
+      }
+    } else if (value === null || value === undefined) {
+      // If value is explicitly null/undefined, clear the date
+      setCalendarDate(null)
     }
-  }, [defaultValue])
+  }, [value, calendarDate])
+
+  // Notify parent component when date changes
+  const handleDateChange = (date: CalendarDate | null) => {
+    setCalendarDate(date)
+    // Convert to JavaScript Date and call the callback only if date exists
+    onChangeDate(date ? calendarDateToDate(date) : undefined)
+  }
 
   return (
     <DateField
       className={cn('*:not-first:mt-2', classNames?.container)}
-      onChange={date => {
-        if (date) {
-          setCalendarDate(date)
-        }
-      }}
+      onChange={handleDateChange}
       value={calendarDate}>
       <Label
         className={cn(

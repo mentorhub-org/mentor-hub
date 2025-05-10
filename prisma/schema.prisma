@@ -47,6 +47,7 @@ model Profile {
   skills      String?
   availableForMentoring Boolean? @default(false)
 
+  socialLinks SocialLinks?
   servers  Server[]
   member   Member[]
   channels Channel[]
@@ -57,8 +58,27 @@ model Profile {
   @@map("profile")
 }
 
-// Server Model
+// Social Links Model
+model SocialLinks {
+  id        String   @id @default(uuid())
+  profileId String   @unique
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  facebook  String?
+  instagram    String?
+  telegram   String?
+  whatsapp   String?
+  x   String?
+  linkedin  String?
+  github    String?
+  behance   String?
+  dribbble   String?
+  youtube   String?
+  pinterest String?
 
+  @@map("profile_social_links")
+}
+
+// Server Model
 model Server {
   id          String    @id @default(uuid())
   name        String    @unique

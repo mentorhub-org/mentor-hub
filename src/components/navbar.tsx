@@ -1,7 +1,15 @@
 'use client'
 
-import { FACE, MASSAGE, MENUU, PRIM, SEARCH, SETING } from '@/constants/icons'
+import {
+  FACE,
+  LOGOICON,
+  MASSAGE,
+  MENUU,
+  SEARCH,
+  SETING,
+} from '@/constants/icons'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 
 export default function Navbar() {
@@ -12,10 +20,10 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-white p-4 rounded-lg shadow-md mx-2 my-2">
+    <nav className="bg-white p-4 rounded-lg mx-2 my-2">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="text-2xl font-bold text-blue-500">MentorHub</div>
+          <Image src={LOGOICON} alt="Mentor Hub" className="h-11 w-fit" />
           <div className="hidden md:flex items-center w-full max-w-md">
             <input
               type="text"
@@ -35,22 +43,19 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-4">
-          <button className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-full text-sm md:text-base">
-            <Image src={PRIM} alt="Prim" className="w-5 h-5" />
-            <span>Create Course</span>
-          </button>
-
           <div className="flex gap-8">
             <Image
               src={MASSAGE}
               alt="Massage"
               className="text- w-6 h-6 cursor-pointer"
             />
-            <Image
-              src={SETING}
-              alt="Setting"
-              className="w-6 h-6 cursor-pointer"
-            />
+            <Link href="/settings/personal-info">
+              <Image
+                src={SETING}
+                alt="Setting"
+                className="w-6 h-6 cursor-pointer"
+              />
+            </Link>
             <Image src={FACE} alt="Face" className="w-6 h-6 cursor-pointer" />
           </div>
         </div>
@@ -70,11 +75,6 @@ export default function Navbar() {
             <Image src={SEARCH} alt="Search" className="w-5 h-5" />
           </button>
         </div>
-
-        <button className="flex items-center gap-2 bg-darkblue text-white px-4 py-2 rounded-full text-sm w-full justify-center">
-          <Image src={PRIM} alt="Prim" className="w-5 h-5" />
-          <span>Create Course</span>
-        </button>
 
         <div className="flex gap-3 mt-2">
           <Image

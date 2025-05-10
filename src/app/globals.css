@@ -138,9 +138,22 @@
 }
 
 .rounded-icon {
-  @apply aspect-square object-cover transition-all ease-in-out duration-200 rounded-[50%];
+  @apply aspect-square rounded-[50%] object-cover transition-all duration-200 ease-in-out;
 }
 
 .rounded-icon:hover {
   @apply rounded-2xl;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
 }
