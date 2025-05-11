@@ -3,7 +3,7 @@
 import InputText from '@/components/shared/text-input'
 import { Button } from '@/components/ui/button'
 import Title from '@/components/ui/title'
-import { getProfile, updateProfile } from '@/services/profile'
+import { updateProfile } from '@/services/profile'
 import type { Profile } from '@prisma/client'
 import { useRequest } from 'ahooks'
 import { Loader2 } from 'lucide-react'
@@ -11,8 +11,8 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
-export default function About() {
-  const { data: profile, loading: profileLoading } = useRequest(getProfile)
+export default function About({ profile }: { profile: Profile }) {
+  if (!profile) return <div>profile Loading...</div>
   const {
     runAsync,
     refresh,
@@ -46,11 +46,12 @@ export default function About() {
     }
   }
 
-  const handleDeleteSkill = (skill: string) => {
+  const handleDeleteSkill = async (skill: string) => {
     try {
       if (!profile?.skills) return
       const newSkills = profile?.skills.split(',').filter(s => s !== skill)
-      runAsync({ skills: newSkills.join(',') })
+      await runAsync({ skills: newSkills.join(',') })
+      refresh()
       toast.success('Your profile has been updated successfully')
       refresh()
     } catch (error) {
@@ -63,8 +64,6 @@ export default function About() {
       setValue('about', profile?.about || '')
     }
   }, [profile])
-
-  if (profileLoading) return <div>Profile is Loading...</div>
 
   if (!profile) return <div>Profile not found</div>
 

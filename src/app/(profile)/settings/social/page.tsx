@@ -2,8 +2,11 @@
 
 import { Button } from '@/components/ui/button'
 import Title from '@/components/ui/title'
-import { getProfile, getProfileSocialLinks, updateProfile } from '@/services/profile'
-import type { SocialLinks } from '@prisma/client'
+import {
+  getProfileSocialLinks,
+  updateProfileSocialLinks,
+} from '@/services/profile'
+import type { Profile, SocialLinks } from '@prisma/client'
 import { useRequest } from 'ahooks'
 import { useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -11,18 +14,14 @@ import { toast } from 'sonner'
 import PortfolioSocialLinks from './components/PortfolioSocialLinks'
 import { sociallinksImages, worklinksImages } from './data'
 
-export default function Links() {
-  const {
-    data: profile,
-    loading: profileLoading,
-  } = useRequest(getProfile, {
-    retryCount: 3,
-    cacheKey: 'profile-data',
-  })
-  
-  const { runAsync: updateProfileAsync, loading: isSubmitting } = useRequest(updateProfile, {
-    manual: true,
-  })
+export default function Social({ profile }: { profile: Profile }) {
+  if (!profile) return <div>profile Loading...</div>
+  const { runAsync: updateProfileAsync, loading: isSubmitting } = useRequest(
+    updateProfileSocialLinks,
+    {
+      manual: true,
+    },
+  )
 
   const {
     data: socialLinks,
@@ -35,11 +34,11 @@ export default function Links() {
 
   const methods = useForm<Partial<SocialLinks>>()
 
-  const isLoading = profileLoading || socialLinksLoading
+  const isLoading = socialLinksLoading
 
   const updateProfileData = async (data: Partial<SocialLinks>) => {
     try {
-      await updateProfileAsync(data)
+      await updateProfileAsync(data, profile?.id)
       toast.success('Profile updated successfully')
       refresh()
     } catch (err) {

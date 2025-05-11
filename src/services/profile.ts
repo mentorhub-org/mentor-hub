@@ -5,8 +5,6 @@ import type { Profile, SocialLinks } from '@prisma/client'
 import { getAuth } from './auth'
 
 export const getProfile = async () => {
-  'use server'
-  console.log('getProfile')
   const user = await getAuth()
 
   if (!user) throw new Error('Unauthorized')

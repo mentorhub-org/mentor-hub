@@ -7,11 +7,10 @@ import { InputHTMLAttributes, useEffect, useState } from 'react'
 import { Label } from '../ui/label'
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
-  onChangeDate: (date: Date | undefined) => void
+  onChangeDate: (date: Date) => void
   label: string
   error?: string
-  value?: string | Date
-  defaultValue?: string | Date
+  value: string | Date
   disabled?: boolean
   classNames?: {
     container?: string
@@ -40,18 +39,12 @@ export default function PickDate({
   onChangeDate,
   classNames,
   error,
-  defaultValue,
   value,
 }: Props) {
-  // Use value prop if provided, otherwise use defaultValue
-  const initialDate = value || defaultValue
-  
-  // Convert initial date to CalendarDate only if a date is provided
-  const [calendarDate, setCalendarDate] = useState<CalendarDate | null>(
-    initialDate ? dateToCalendarDate(new Date(initialDate)) : null
+  const [calendarDate, setCalendarDate] = useState<CalendarDate>(
+    dateToCalendarDate(new Date(value)),
   )
 
-  // Update calendarDate when value prop changes
   useEffect(() => {
     if (value) {
       const newCalendarDate = dateToCalendarDate(new Date(value))
@@ -59,17 +52,15 @@ export default function PickDate({
       if (!calendarDate || newCalendarDate.compare(calendarDate) !== 0) {
         setCalendarDate(newCalendarDate)
       }
-    } else if (value === null || value === undefined) {
-      // If value is explicitly null/undefined, clear the date
-      setCalendarDate(null)
     }
   }, [value, calendarDate])
 
   // Notify parent component when date changes
   const handleDateChange = (date: CalendarDate | null) => {
+    if (!date) return
     setCalendarDate(date)
     // Convert to JavaScript Date and call the callback only if date exists
-    onChangeDate(date ? calendarDateToDate(date) : undefined)
+    onChangeDate(calendarDateToDate(date))
   }
 
   return (

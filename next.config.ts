@@ -2,9 +2,6 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   /* config options here */
-  experimental: {
-    typedRoutes: process.env.NODE_ENV === 'development',
-  },
   async redirects() {
     return [
       {
