@@ -18,8 +18,6 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 export default function PersonalInfo({ profile }: { profile: Profile }) {
-  if (!profile) return <div>profile Loading...</div>
-
   const { runAsync: update, loading: isSubmitting } = useRequest(
     updateProfile,
     { manual: true },
@@ -88,6 +86,8 @@ export default function PersonalInfo({ profile }: { profile: Profile }) {
     setAvailableForMentoring(!!profile.availableForMentoring)
     setProfileImage(profile.imgUrl)
   }, [])
+
+  if (!profile) return <div>profile Loading...</div>
   return (
     <Card className="w-full h-full shadow-none border-none flex flex-col">
       <CardHeader className="bg-slate-50">

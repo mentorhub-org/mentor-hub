@@ -102,16 +102,6 @@ export const auth = betterAuth({
     //   return true
     // }),
   },
-  databaseHooks: {
-    verification: {
-      update: {
-        after: async (verification, context) => {
-          console.log('verification', verification)
-          console.log('context', context)
-        },
-      },
-    },
-  },
   plugins: [openAPI(), admin(), nextCookies()],
   trustedOrigins: ['http://localhost:3000', 'http://localhost:*'],
 })

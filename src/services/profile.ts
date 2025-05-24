@@ -4,13 +4,29 @@ import prisma from '@/db/prisma'
 import type { Profile, SocialLinks } from '@prisma/client'
 import { getAuth } from './auth'
 
+export const getAllProfiles = async () => {
+  return await prisma.profile.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
+  })
+}
+
 export const getProfile = async () => {
   const user = await getAuth()
 
   if (!user) throw new Error('Unauthorized')
 
-  return await prisma.profile.findUnique({
+  const profile = await prisma.profile.findUnique({
     where: { userId: user.id },
+  })
+  if (!profile) throw new Error('Profile not found "coded by ragab"')
+  return profile
+}
+
+export const getProfileByUserEmail = async (email: string) => {
+  return await prisma.profile.findUnique({
+    where: { email },
   })
 }
 

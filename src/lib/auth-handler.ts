@@ -5,8 +5,6 @@ import { redirect } from 'next/navigation'
 import { auth } from './auth'
 
 export const signUpEmail = async (data: Register) => {
-  console.log('data', data)
-
   const { firstName, lastName, ...rest } = data
   auth.api.signUpEmail({
     body: {

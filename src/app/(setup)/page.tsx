@@ -3,7 +3,7 @@ import { getProfile } from '@/services/profile'
 import { redirect } from 'next/navigation'
 
 export default async function Setup() {
-  const { profile } = await getProfile()
+  const profile = await getProfile()
   const server = await prisma.server.findFirst({
     where: {
       members: {

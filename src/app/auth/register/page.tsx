@@ -11,14 +11,17 @@ import { RegisterSchema, Register as TRegister } from '@/schema/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function Register() {
+  const [dateOfBirth, setDateOfBirth] = useState<Date>(new Date())
+  const [isAgreed, setIsAgreed] = useState(false)
+
   const {
     register,
     handleSubmit,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm<TRegister>({
     resolver: zodResolver(RegisterSchema),
@@ -31,7 +34,9 @@ export default function Register() {
   }
 
   const onChangeBirthDate = (date: Date | undefined) => {
+    if (!date) return
     setValue('dateOfBirth', date || new Date())
+    setDateOfBirth(date)
   }
 
   return (
@@ -104,6 +109,7 @@ export default function Register() {
                 error={errors.repeatPassword?.message}
               />
               <PickDate
+                value={dateOfBirth.toDateString()}
                 label="Date Of Birth"
                 onChangeDate={onChangeBirthDate}
                 classNames={{
@@ -114,13 +120,18 @@ export default function Register() {
               />
             </div>
             <div className="flex items-center mt-4">
-              <input type="checkbox" className="mr-2" />
+              <input
+                type="checkbox"
+                className="mr-2"
+                checked={isAgreed}
+                onChange={() => setIsAgreed(prev => !prev)}
+              />
               <p className="text-gray-600">
                 I Agree To The{' '}
                 <span className="text-blue-600">Terms And Privacy Policy</span>
               </p>
             </div>
-            <Button type="submit" className="p-6">
+            <Button disabled={!isAgreed} type="submit" className="p-6">
               Register My Account
             </Button>
           </form>

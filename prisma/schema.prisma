@@ -22,7 +22,6 @@ model User {
   banExpires       DateTime?
   dateOfBirth      DateTime
   phone            String
-  streamRegistered Boolean?  @default(false)
   profile          Profile?
   sessions         Session[]
   accounts         Account[]
@@ -39,13 +38,15 @@ model Profile {
   name        String
   imgUrl      String?  @db.Text
   phone       String
-  email       String   @db.Text
+  email       String   @unique @db.Text
   location    String?
   jobTitle    String?
   dateOfBirth DateTime
   about       String?
   skills      String?
   availableForMentoring Boolean? @default(false)
+  streamRegistered Boolean?  @default(false)
+  role        String?
 
   socialLinks SocialLinks?
   servers  Server[]

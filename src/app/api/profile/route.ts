@@ -4,7 +4,6 @@ import { getAuth } from '@/services/auth'
 export async function GET() {
   try {
     const user = await getAuth()
-
     if (!user)
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
         status: 401,

@@ -5,10 +5,17 @@ import { BOOKBLACK, LINKBLUE, LOGIN, PRO, VECTOR } from '@/constants/icons'
 import { PROFILE } from '@/constants/images'
 import * as authHandler from '@/lib/auth-handler'
 import { getProfile } from '@/services/profile'
+import { Loader2 } from 'lucide-react'
 import Image from 'next/image'
 
 export default async function SettingsAside() {
   const profile = await getProfile()
+  if (!profile)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="w-8 h-8 animate-spin text-darkblue" />
+      </div>
+    )
 
   return (
     <aside className="bg-white rounded-lg w-full py-6 px-3 flex flex-col min-h-screen md:h-auto md:max-w-xs md:w-1/4  md:py-8 md:px-4 lg:py-10 lg:px-5">
@@ -16,9 +23,12 @@ export default async function SettingsAside() {
       <div className="flex flex-col items-center mb-8">
         <div className="relative">
           <Image
-            src={PROFILE}
+            src={profile?.imgUrl || PROFILE}
             alt="Profile"
-            className="w-35 h-35 rounded-full object-cover"
+            width={100}
+            height={100}
+            className="rounded-full object-cover aspect-square"
+            unoptimized={profile?.imgUrl?.startsWith('data:image')} // Disable optimization for base64 images
           />
           <span className="absolute bottom-0 right-0 w-8 h-8 bg-da rounded-full flex items-center justify-center text-white text-xs">
             <Image src={VECTOR} alt="" />

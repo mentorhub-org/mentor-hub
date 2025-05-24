@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   )
   const body = await request.json()
 
-  const userId = body.userId
+  const userId = body.id
   const mail = body.email
 
   if (!userId || !mail) {

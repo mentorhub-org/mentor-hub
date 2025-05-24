@@ -23,7 +23,9 @@ export default function Navbar() {
     <nav className="bg-white p-4 rounded-lg mx-2 my-2">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Image src={LOGOICON} alt="Mentor Hub" className="h-11 w-fit" />
+          <Link href="/profile">
+            <Image src={LOGOICON} alt="Mentor Hub" className="h-11 w-fit" />
+          </Link>
           <div className="hidden md:flex items-center w-full max-w-md">
             <input
               type="text"
@@ -44,19 +46,23 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-4">
           <div className="flex gap-8">
-            <Image
-              src={MASSAGE}
-              alt="Massage"
-              className="text- w-6 h-6 cursor-pointer"
-            />
-            <Link href="/settings/personal-info">
+            <Link href="/chats">
+              <Image
+                src={MASSAGE}
+                alt="Massage"
+                className="text- w-6 h-6 cursor-pointer"
+              />
+            </Link>
+            <Link href="/settings">
               <Image
                 src={SETING}
                 alt="Setting"
                 className="w-6 h-6 cursor-pointer"
               />
             </Link>
-            <Image src={FACE} alt="Face" className="w-6 h-6 cursor-pointer" />
+            <Link href="/profile">
+              <Image src={FACE} alt="Face" className="w-6 h-6 cursor-pointer" />
+            </Link>
           </div>
         </div>
       </div>
