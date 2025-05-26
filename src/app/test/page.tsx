@@ -43,12 +43,11 @@ export default function Chats({}: Props) {
     if (stream?.client && data) {
       const _client = new StreamVideoClient({
         apiKey: data.apiKey,
-        token: data.token,
         user: {
           id: data.profile.userId,
           name: data.profile.name,
-          email: data.profile.email,
         },
+        token: data.token, // Add the missing token
       })
       setVideoClient(_client)
 
@@ -57,7 +56,7 @@ export default function Chats({}: Props) {
         setVideoClient(undefined)
       }
     }
-  }, [stream?.client])
+  }, [stream?.client, data]) // Add proper dependencies
 
   if (!temp) return <div>There is a problem in useCreateChannel hook</div>
 
