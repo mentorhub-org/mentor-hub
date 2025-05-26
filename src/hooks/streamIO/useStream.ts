@@ -5,7 +5,7 @@ import { useRequest } from 'ahooks'
 import { useCallback, useEffect, useState } from 'react'
 import { StreamChat, User } from 'stream-chat'
 
-type HomeState = {
+export type HomeState = {
   apiKey: string
   user: User
   token: () => Promise<string>
