@@ -68,8 +68,8 @@ export default function Chats({}: Props) {
   return (
     <div className="container mx-auto">
       <Chat client={client} theme="str-chat-theme-dark">
-        <div className="flex h-full relative">
-          <div className="flex-1 mb-24">
+        <div className="flex relative h-[98vh] rounded-2xl overflow-hidden">
+          <div className="mb-24">
             <ChannelList filters={{}} />
             <Input
               type="text"
@@ -93,7 +93,7 @@ export default function Chats({}: Props) {
               )}
             </Button>
           </div>
-          <div className="w-full">
+          <div className="w-full rounded-2xl">
             <Channel>
               <Window>
                 <ChannelHeader />

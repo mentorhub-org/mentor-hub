@@ -1,10 +1,15 @@
 'use client'
 
-import type { HomeState } from '@/app/discord-test/page'
 import { getProfile } from '@/services/profile'
 import { useRequest } from 'ahooks'
 import { useCallback, useEffect, useState } from 'react'
 import { StreamChat, User } from 'stream-chat'
+
+type HomeState = {
+  apiKey: string
+  user: User
+  token: () => Promise<string>
+}
 
 export const useStream = () => {
   const {
@@ -12,10 +17,10 @@ export const useStream = () => {
     loading: profileLoading,
     error: profileError,
   } = useRequest(getProfile)
+  const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY
   const [client, setClient] = useState<StreamChat | null>(null)
   const [homeState, setHomeState] = useState<HomeState>()
   const [connectionError, setConnectionError] = useState<Error | null>(null)
-  const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY
 
   if (!apiKey) {
     console.error('No Stream API key found in environment variables')

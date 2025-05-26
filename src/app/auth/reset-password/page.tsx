@@ -1,10 +1,8 @@
-// app/new-password/page.tsx
 'use client'
 
 import InputText from '@/components/shared/text-input'
 import { Button } from '@/components/ui/button'
 import Title from '@/components/ui/title'
-import { useAuthQuery } from 'better-auth/client'
 import Image from 'next/image'
 import Link from 'next/link'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -23,15 +21,12 @@ export default function NewPasswordPage() {
     formState: { errors },
   } = useForm<Login>()
 
-  const { resetPassword } = useAuthQuery()
-
   const onSubmit: SubmitHandler<Login> = async data => {
     if (data.password !== data.confirmPassword) {
       alert('Passwords do not match!')
       return
     }
     try {
-      await resetPassword(data.password)
       console.log('Password reset successful:', data)
     } catch (error) {
       console.error('Password reset failed:', error)
