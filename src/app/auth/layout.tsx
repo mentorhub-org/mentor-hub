@@ -8,9 +8,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <body suppressHydrationWarning className="container mx-auto">
-      {children}
-    </body>
-  )
+  return <main className="container mx-auto">{children}</main>
 }

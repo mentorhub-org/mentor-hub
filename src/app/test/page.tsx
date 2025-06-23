@@ -1,6 +1,6 @@
 'use client'
 
-import { useStream } from '@/hooks/streamIO/useStream'
+import { useChatClient } from '@/hooks/streamIO/useChatClient'
 import { useVideoClient } from '@/hooks/streamIO/useVideoClient'
 import { StreamVideo } from '@stream-io/video-react-sdk'
 import '@stream-io/video-react-sdk/dist/css/styles.css'
@@ -13,7 +13,7 @@ import LoadingScreen from './components/LoadingScreen'
 import VideoCallUI from './VideoCallUI'
 
 export default function Chats() {
-  const stream = useStream()
+  const { chatClient, loading: chatLoading, error: chatError } = useChatClient()
   const {
     videoClient,
     loading: videoLoading,
@@ -21,18 +21,8 @@ export default function Chats() {
   } = useVideoClient()
 
   // Handle loading states
-  if (!stream) {
+  if (chatLoading) {
     return <LoadingScreen message="Initializing chat..." />
-  }
-
-  const { profileLoading, profileError, client, homeState } = stream
-
-  if (profileLoading || !homeState) {
-    return <LoadingScreen message="Loading profile..." />
-  }
-
-  if (profileError) {
-    return <ErrorScreen message={profileError.message || 'Profile error'} />
   }
 
   if (videoLoading) {
@@ -43,13 +33,13 @@ export default function Chats() {
     return <ErrorScreen message={videoError || 'Video client error'} />
   }
 
-  if (!client || !videoClient) {
+  if (!chatClient || !videoClient) {
     return <LoadingScreen message="Connecting to Stream services..." />
   }
 
   return (
     <div className="container mx-auto">
-      <Chat client={client}>
+      <Chat client={chatClient}>
         <StreamVideo client={videoClient}>
           <div className="flex relative h-[98vh] rounded-2xl overflow-hidden">
             <ChatSidebar />

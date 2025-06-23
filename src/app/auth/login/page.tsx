@@ -53,7 +53,6 @@ export default function Login() {
               classNames={{ label: 'text-black mb-2' }}
               error={errors.email?.message}
             />
-
             <InputText
               label="Password"
               placeholder="************"
@@ -63,7 +62,6 @@ export default function Login() {
               classNames={{ label: 'text-black mb-2' }}
               error={errors.password?.message}
             />
-
             <div className="">
               <Link
                 href="/auth/forget-password"

@@ -12,14 +12,17 @@ export const getAllProfiles = async () => {
   })
 }
 
-export const getProfile = async () => {
+export const getProfile = async (id?: string) => {
   const user = await getAuth()
 
   if (!user) throw new Error('Unauthorized')
 
+  const userId = id || user.id
   const profile = await prisma.profile.findUnique({
-    where: { userId: user.id },
+    where: { userId },
   })
+  console.log('id: ', id)
+
   if (!profile) throw new Error('Profile not found "coded by ragab"')
   return profile
 }

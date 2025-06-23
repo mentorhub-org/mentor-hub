@@ -2,12 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { authClient } from './lib/auth-client'
 
 // Define protected routes
-const protectedPaths = [
-  '/profile',
-  '/settings/about',
-  '/settings/personal-info',
-  '/settings/social',
-]
+const protectedPaths = ['/profile/*']
 
 export async function middleware(request: NextRequest) {
   const session = await authClient.getSession({
@@ -16,7 +11,7 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl
 
-  if (protectedPaths.includes(pathname) && !session.data) {
+  if (pathname.startsWith('/profile') && !session.data) {
     return NextResponse.redirect(new URL('/auth/login', request.url))
   }
 

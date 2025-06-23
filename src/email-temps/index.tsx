@@ -1,28 +1,42 @@
-// import fs from 'fs'
-// import path from 'path'
-
-// export const getTemplates = (
-//   userName: string,
-//   link: string,
-//   fileName: string,
-// ) => {
-//   const template = fs.readFileSync(path.resolve(__dirname, fileName))
-//   return template
-//     .toString()
-//     .replace('{{ username }}', userName)
-//     .replace('{{ link }}', link)
-// }
-
 export const emailTemplates = {
   emailVerification: ({ to, code }: { to: string; code: string }) => ({
     to,
     subject: 'Verify your email',
     html: `<!DOCTYPE html>
-<html>
-  <body>
-    <h1>Welcome, to Frontline</h1>
-    <p>Verify your email by entering the code below:</p>
-    <h2>${code}</h2>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify your email</title>
+  </head>
+  <body style="margin: 0; padding: 0; background-color: #f4f6fa;">
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr>
+        <td align="center" style="padding: 40px 15px;">
+          <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); padding: 30px;">
+            <tr>
+              <td align="center" style="font-family: Arial, sans-serif;">
+                <h2 style="color: #007bff; margin: 0 0 20px;">Welcome to Mentor Hub 👋</h2>
+                <p style="color: #555555; font-size: 16px; line-height: 1.6; margin: 0 0 30px;">
+                  Thank you for signing up!<br />
+                  Please confirm your email to activate your account.
+                </p>
+                <a href="${code}" style="background: linear-gradient(55.08deg, #137bdd 20.31%, #4db7ff 72.54%); color: white; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-size: 16px; font-weight: bold; display: inline-block;">
+                  Confirm Email
+                </a>
+                <p style="color: #999999; font-size: 12px; margin-top: 30px;">
+                  If you did not create an account, you can safely ignore this email.
+                </p>
+                <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;" />
+                <p style="color: #aaaaaa; font-size: 12px;">
+                  &copy; 2025 Mentor Hub. All rights reserved.
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
   </body>
 </html>`,
   }),

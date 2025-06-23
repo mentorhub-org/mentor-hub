@@ -11,10 +11,12 @@ import { RegisterSchema, Register as TRegister } from '@/schema/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function Register() {
+  const router = useRouter()
   const [dateOfBirth, setDateOfBirth] = useState<Date>(new Date())
   const [isAgreed, setIsAgreed] = useState(false)
 
@@ -30,7 +32,14 @@ export default function Register() {
   const onSubmit = async (data: TRegister) => {
     console.log(data)
 
-    await authHandler.signUpEmail(data)
+    try {
+      await authHandler.signUpEmail(data)
+      // Redirect to verification page after successful registration
+      router.push('/auth/verification')
+    } catch (error) {
+      console.error('Registration error:', error)
+      // Handle error here (you could add toast notifications)
+    }
   }
 
   const onChangeBirthDate = (date: Date | undefined) => {
@@ -96,7 +105,10 @@ export default function Register() {
                 type="password"
                 name="password"
                 register={register}
-                classNames={{ label: 'text-black mb-2' }}
+                classNames={{
+                  label: 'text-black mb-2',
+                  button: 'h-fit translate-y-1/2 pt-[2px]',
+                }}
                 error={errors.password?.message}
               />
               <InputText
@@ -105,7 +117,10 @@ export default function Register() {
                 type="password"
                 name="repeatPassword"
                 register={register}
-                classNames={{ label: 'text-black mb-2' }}
+                classNames={{
+                  label: 'text-black mb-2',
+                  button: 'h-fit translate-y-1/2 pt-[2px]',
+                }}
                 error={errors.repeatPassword?.message}
               />
               <PickDate

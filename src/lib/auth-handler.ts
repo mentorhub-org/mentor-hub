@@ -52,5 +52,5 @@ export const signInFn = async (data: Login) => {
   } catch (error) {
     console.log('error', error)
   }
-  redirect('/profile')
+  redirect('/profile/me')
 }

@@ -47,11 +47,9 @@ model Profile {
   availableForMentoring Boolean? @default(false)
   streamRegistered Boolean?  @default(false)
   role        String?
-
+  mentoringSessions MentoringSession[] @relation("MentorSessions")
+  learningSessions  MentoringSession[] @relation("MenteeSessions")
   socialLinks SocialLinks?
-  servers  Server[]
-  member   Member[]
-  channels Channel[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -77,70 +75,6 @@ model SocialLinks {
   pinterest String?
 
   @@map("profile_social_links")
-}
-
-// Server Model
-model Server {
-  id          String    @id @default(uuid())
-  name        String    @unique
-  imgUrl      String?   @db.Text
-  inviteCode  String?   @db.Text
-  description String?
-  profileId   String?   @db.Text
-  profile     Profile?  @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  members     Member[]
-  channels    Channel[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  @@map("server")
-}
-
-enum MemberRole {
-  USER
-  ADMIN
-  MODERATOR
-}
-
-model Member {
-  id        String     @id @default(uuid())
-  serverId  String
-  profileId String
-  role      MemberRole
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-
-  server         Server          @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  profile        Profile         @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  message        Message[]
-  directMessages DirectMessage[]
-
-  conversationInitiated Conversation[] @relation("MemberOne")
-  conversationReceived  Conversation[] @relation("MemberTwo")
-
-  @@unique([serverId, profileId])
-  @@map("member")
-}
-
-enum ChannelType {
-  TEXT
-  AUDIO
-  VIDEO
-}
-
-model Channel {
-  id        String      @id @default(uuid())
-  name      String      @unique
-  type      ChannelType
-  profileId String?     @db.Text
-  profile   Profile?    @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  serverId  String
-  server    Server      @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  message   Message[]
-
-  @@map("channel")
 }
 
 model Session {
@@ -189,50 +123,34 @@ model Verification {
   @@map("verification")
 }
 
-model Message {
-  id        String   @id @default(uuid())
-  content   String
-  fileUrl   String?
-  memberId  String
-  member    Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
-  channelId String
-  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
-  deleted   Boolean?
-  edited    Boolean?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([channelId])
-  @@index([memberId])
+enum SessionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+  CANCELLED
+  UPCOMING
 }
 
-model Conversation {
-  id            String          @id @default(uuid())
-  memberOneId   String
-  memberOne     Member          @relation("MemberOne", fields: [memberOneId], references: [id], onDelete: Cascade)
-  memberTwoId   String
-  memberTwo     Member          @relation("MemberTwo", fields: [memberTwoId], references: [id], onDelete: Cascade)
-  directMessage DirectMessage[]
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
+model MentoringSession {
+  id          String        @id @default(uuid())
+  name        String
+  description String?
+  price       String?
+  thumbnail   String?       @db.Text
+  startTime   DateTime
+  endTime     DateTime?
+  status      SessionStatus @default(PENDING)
+  notes       String?
+  
+  // Relationships
+  mentorId    String
+  mentor      Profile          @relation("MentorSessions", fields: [mentorId], references: [id], onDelete: Cascade)
+  menteeId    String
+  mentee      Profile          @relation("MenteeSessions", fields: [menteeId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 
-  @@unique([memberOneId, memberTwoId])
-  @@index([memberOneId])
-  @@index([memberTwoId])
-}
-
-model DirectMessage {
-  id             String       @id @default(uuid())
-  content        String
-  fileUrl        String?
-  memberId       String
-  member         Member       @relation(fields: [memberId], references: [id], onDelete: Cascade)
-  conversationId String
-  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  deleted        Boolean      @default(false)
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
-
-  @@index([memberId])
-  @@index([conversationId])
+  @@map("mentoring_session")
 }
