@@ -28,13 +28,13 @@ interface SessionCardProps {
       id: string
       name: string
       email: string
-      image?: string | null
+      imgUrl?: string | null
     }
     mentee?: {
       id: string
       name: string
       email: string
-      image?: string | null
+      imgUrl?: string | null
     }
   }
   type: 'learning' | 'mentorship'
@@ -43,7 +43,6 @@ interface SessionCardProps {
 
 const statusColors = {
   PENDING: 'bg-yellow-100 text-yellow-800',
-  APPROVED: 'bg-green-100 text-green-800',
   REJECTED: 'bg-red-100 text-red-800',
   COMPLETED: 'bg-blue-100 text-blue-800',
   CANCELLED: 'bg-gray-100 text-gray-800',
@@ -55,16 +54,18 @@ export default function SessionCard({
   type,
   onStatusUpdate,
 }: SessionCardProps) {
+  console.log(session.mentee)
+
   const otherUser = type === 'learning' ? session.mentor : session.mentee
   const canApprove = type === 'mentorship' && session.status === 'PENDING'
 
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full max-w-sm">
       <CardHeader>
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
             <Avatar>
-              <AvatarImage src={otherUser?.image || ''} />
+              <AvatarImage src={otherUser?.imgUrl || ''} />
               <AvatarFallback>
                 {otherUser?.name?.charAt(0) || 'U'}
               </AvatarFallback>
@@ -124,7 +125,7 @@ export default function SessionCard({
       {canApprove && onStatusUpdate && (
         <CardFooter className="flex space-x-2">
           <Button
-            onClick={() => onStatusUpdate(session.id, SessionStatus.APPROVED)}
+            onClick={() => onStatusUpdate(session.id, SessionStatus.UPCOMING)}
             className="flex-1">
             Approve
           </Button>

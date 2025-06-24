@@ -1,9 +1,4 @@
-'use client'
-
-import { Button } from '@/components/ui/button'
 import Image, { type StaticImageData } from 'next/image'
-import { useState } from 'react'
-import CreateSessionDialog from './CreateSessionDialog'
 
 type ProfileInfoProps = {
   name: string
@@ -20,19 +15,6 @@ export default function ProfileInfo({
   rating,
   profileImage,
 }: ProfileInfoProps) {
-  const [isLoading, setIsLoading] = useState(false)
-  const [isSessionDialogOpen, setIsSessionDialogOpen] = useState(false)
-
-  const handleChatRequest = async () => {
-    setIsLoading(true)
-    // API call to initiate chat would go here
-    setIsLoading(false)
-  }
-
-  const handleSessionRequest = () => {
-    setIsSessionDialogOpen(true)
-  }
-
   return (
     <div className="text-center">
       <Image
@@ -57,26 +39,6 @@ export default function ProfileInfo({
           {rating.toFixed(1)}
         </span>
       </div>
-      <div className="flex flex-col sm:flex-row gap-2 w-full mt-4">
-        <Button onClick={handleChatRequest} disabled={isLoading}>
-          Chat With Me
-        </Button>
-        <Button
-          variant="secondary"
-          onClick={handleSessionRequest}
-          disabled={isLoading}>
-          Create Session
-        </Button>
-      </div>
-
-      {/* Session Dialog */}
-      <CreateSessionDialog
-        isOpen={isSessionDialogOpen}
-        onClose={() => setIsSessionDialogOpen(false)}
-        mentorId={id}
-        mentorName={name}
-        learnerName="Ashraf Mohamed" // This would typically come from the current user's profile
-      />
     </div>
   )
 }

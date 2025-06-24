@@ -42,7 +42,7 @@ export const useCreateChannel = () => {
       let channelName = ''
       if (memberProfiles.length === 1) {
         // If there's only one other member, use their name
-        channelName = 'Chat With ' + memberProfiles[0].name
+        channelName = memberProfiles[0].name
       } else {
         // For group chats, use 'Group' with a random number
         const randomNum = Math.floor(Math.random() * 1000)

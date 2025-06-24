@@ -47,15 +47,19 @@ export async function createMentoringSession(data: {
   })
 }
 
-export async function getMyLearnings() {
+export async function getMyMentorships() {
   const profile = await getProfile()
 
-  return await prisma.mentoringSession.findMany({
+  if (!profile) {
+    throw new Error('Unauthorized')
+  }
+
+  return prisma.mentoringSession.findMany({
     where: {
-      menteeId: profile?.id,
+      mentorId: profile?.id,
     },
     include: {
-      mentor: {
+      mentee: {
         select: {
           id: true,
           name: true,
@@ -70,15 +74,19 @@ export async function getMyLearnings() {
   })
 }
 
-export async function getMyMentorships() {
+export async function getMyLearnings() {
   const profile = await getProfile()
+
+  if (!profile) {
+    throw new Error('Unauthorized')
+  }
 
   return prisma.mentoringSession.findMany({
     where: {
-      mentorId: profile?.id,
+      menteeId: profile?.id,
     },
     include: {
-      mentee: {
+      mentor: {
         select: {
           id: true,
           name: true,

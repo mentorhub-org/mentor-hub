@@ -22,7 +22,7 @@ export default async function ProfileSidebar({ profile }: ProfileSidebarProps) {
   }
 
   return (
-    <aside className="m-3 w-full md:w-1/4 bg-white md:p-8 lg:p-10 rounded-2xl">
+    <aside className="m-3 w-full md:w-1/4 max-w-sm bg-white md:p-8 lg:p-10 rounded-2xl">
       <div className="flex flex-col items-center">
         {/* Profile Section */}
         <ProfileInfo

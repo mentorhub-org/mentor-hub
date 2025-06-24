@@ -30,8 +30,6 @@ export default function Register() {
   })
 
   const onSubmit = async (data: TRegister) => {
-    console.log(data)
-
     try {
       await authHandler.signUpEmail(data)
       // Redirect to verification page after successful registration

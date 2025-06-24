@@ -23,7 +23,6 @@ export default function SearchPage() {
 
   return (
     <main className="flex h-[calc(100vh-95px)] bg-light relative">
-      {/* Mobile filter toggle */}
       <button
         className="md:hidden fixed bottom-6 right-6 z-50 bg-primary text-white p-3 rounded-full shadow-lg"
         onClick={() => setSidebarOpen(!sidebarOpen)}>

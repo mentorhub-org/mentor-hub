@@ -36,6 +36,7 @@ export default function CreateSessionDialog({
     name: '',
     date: new Date(),
     price: '',
+    description: '',
     notes: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -66,7 +67,7 @@ export default function CreateSessionDialog({
           mentorId,
           menteeId: profile?.id,
           name: sessionData.name,
-          description: sessionData.notes,
+          description: sessionData.description,
           price: sessionData.price,
           startTime: sessionData.date,
           thumbnail: thumbnailPreview,
@@ -83,6 +84,7 @@ export default function CreateSessionDialog({
       setSessionData({
         name: '',
         date: new Date(),
+        description: '',
         price: '',
         notes: '',
       })
@@ -97,7 +99,7 @@ export default function CreateSessionDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-md max-h-[90vh] overflow-auto scrollbar-thin scrollbar-thumb-darkblue scrollbar-track-darkblue hover:scrollbar-thumb-darkblue">
         <DialogHeader>
           <DialogTitle>Create Session</DialogTitle>
           <DialogDescription>
@@ -156,7 +158,7 @@ export default function CreateSessionDialog({
           {/* Date */}
           <div className="grid gap-2">
             <Label htmlFor="date">Date</Label>
-            <div className="flex items-center border rounded-md px-3 py-2">
+            <div className="flex items-center  px-3 py-2">
               <DateField
                 value={
                   new CalendarDate(
@@ -197,6 +199,20 @@ export default function CreateSessionDialog({
                 EUR
               </div>
             </div>
+          </div>
+
+          {/* Session Description */}
+          <div className="grid gap-2">
+            <Label htmlFor="description">Session Description</Label>
+            <Textarea
+              id="description"
+              value={sessionData.description}
+              onChange={e =>
+                setSessionData({ ...sessionData, description: e.target.value })
+              }
+              placeholder="Enter session description"
+              className="min-h-[100px]"
+            />
           </div>
 
           {/* Session Notes */}

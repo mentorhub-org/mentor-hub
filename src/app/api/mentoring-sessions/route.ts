@@ -1,5 +1,8 @@
-import prisma from '@/db/prisma'
-import { createMentoringSession } from '@/services/mentoring-session'
+import {
+  createMentoringSession,
+  getMyLearnings,
+  getMyMentorships,
+} from '@/services/mentoring-session'
 import { getProfile } from '@/services/profile'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -30,24 +33,8 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const sessions = await prisma.mentoringSession.findMany({
-      where: {
-        mentorId: profile?.id,
-      },
-      include: {
-        [userType]: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            imgUrl: true,
-          },
-        },
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    })
+    const sessions =
+      userType === 'mentor' ? await getMyMentorships() : await getMyLearnings()
 
     return NextResponse.json(sessions)
   } catch (error) {

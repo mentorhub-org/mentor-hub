@@ -13,7 +13,7 @@ export default function MyLearnings() {
   const loadSessions = async () => {
     try {
       setLoading(true)
-      const data = await fetch('/api/mentoring-sessions?userType=mentor').then(
+      const data = await fetch('/api/mentoring-sessions?userType=mentee').then(
         res => res.json(),
       )
       setSessions(data)
@@ -50,9 +50,7 @@ export default function MyLearnings() {
     s => s.status === SessionStatus.PENDING,
   )
   const upcomingSessions = sessions.filter(
-    s =>
-      s.status === SessionStatus.APPROVED ||
-      s.status === SessionStatus.UPCOMING,
+    s => s.status === SessionStatus.UPCOMING,
   )
   const historySessions = sessions.filter(
     s =>

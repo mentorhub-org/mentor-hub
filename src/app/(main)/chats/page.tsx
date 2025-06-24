@@ -32,6 +32,8 @@ export default function Chats({}: Props) {
   )
   const [targetEmail, setTargetEmail] = useState<string>('')
   const temp = useCreateChannel()
+  const filters = { members: { $in: ['jimmy'] } }
+  const options = { limit: 10 }
 
   if (!temp) return <div>There is a problem in useCreateChannel hook</div>
 
@@ -63,6 +65,7 @@ export default function Chats({}: Props) {
     const res = await getProfile(targetEmail)
     if (!res) return
     createChannel({ memberProfiles: [res] })
+    setTargetEmail('')
   }
 
   return (
@@ -70,7 +73,11 @@ export default function Chats({}: Props) {
       <Chat client={client} theme="str-chat-theme-dark">
         <div className="flex relative h-[calc(100vh-95px)] rounded-2xl overflow-hidden">
           <div className="mb-24 min-w-[15rem]">
-            <ChannelList filters={{}} />
+            <ChannelList
+              filters={filters}
+              sort={{ last_message_at: -1 }}
+              options={options}
+            />
             <Input
               type="text"
               value={targetEmail}

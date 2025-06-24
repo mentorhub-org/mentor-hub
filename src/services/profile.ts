@@ -21,7 +21,6 @@ export const getProfile = async (id?: string) => {
   const profile = await prisma.profile.findUnique({
     where: { userId },
   })
-  console.log('id: ', id)
 
   if (!profile) throw new Error('Profile not found "coded by ragab"')
   return profile

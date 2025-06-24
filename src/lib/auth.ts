@@ -96,12 +96,6 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
   }),
-  hooks: {
-    // before: createAuthMiddleware(async ctx => {
-    //   console.log(ctx.path, 'test')
-    //   return true
-    // }),
-  },
   plugins: [openAPI(), admin(), nextCookies()],
   trustedOrigins: ['http://localhost:3000', 'http://localhost:*'],
 })
