@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { useCreateChannel } from '@/hooks/streamIO/useCreateChannel'
+import { useCreateChat } from '@/hooks/streamIO/useCreateChat'
 import { useStream } from '@/hooks/streamIO/useStream'
 import { getProfileByUserEmail } from '@/services/profile'
 import { useRequest } from 'ahooks'
@@ -31,11 +31,11 @@ export default function Chats({}: Props) {
     },
   )
   const [targetEmail, setTargetEmail] = useState<string>('')
-  const temp = useCreateChannel()
+  const temp = useCreateChat()
   const filters = { members: { $in: ['jimmy'] } }
   const options = { limit: 10 }
 
-  if (!temp) return <div>There is a problem in useCreateChannel hook</div>
+  if (!temp) return <div>There is a problem in useCreateChat hook</div>
 
   const { createChannel, isLoading: channleCreateLoading } = temp
 

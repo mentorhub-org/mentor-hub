@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { StreamVideoClient } from '@stream-io/video-react-sdk'
 import { useGetHomeState } from '@/hooks/useGetHomeState'
+import { StreamVideoClient } from '@stream-io/video-react-sdk'
+import { useEffect, useState } from 'react'
 
 export const useVideoClient = () => {
   const { data, loading, error } = useGetHomeState()
@@ -16,7 +16,12 @@ export const useVideoClient = () => {
           id: data.profile.userId,
           name: data.profile.name,
         },
-        token: data.token,
+        token: data.token.toString(),
+        options: {
+          onConnectUserError: error => {
+            console.error('Khaled Error : ', error)
+          },
+        },
       })
       setVideoClient(client)
 
@@ -30,6 +35,6 @@ export const useVideoClient = () => {
   return {
     videoClient,
     loading,
-    error
+    error,
   }
 }

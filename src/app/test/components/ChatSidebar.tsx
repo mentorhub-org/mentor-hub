@@ -1,13 +1,13 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { useCreateChat } from '@/hooks/streamIO/useCreateChat'
+import { getProfileByUserEmail } from '@/services/profile'
+import { useRequest } from 'ahooks'
+import { Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { ChannelList } from 'stream-chat-react'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Loader2 } from 'lucide-react'
-import { useRequest } from 'ahooks'
-import { getProfileByUserEmail } from '@/services/profile'
-import { useCreateChannel } from '@/hooks/streamIO/useCreateChannel'
 
 const ChatSidebar = () => {
   const [targetEmail, setTargetEmail] = useState<string>('')
@@ -15,13 +15,13 @@ const ChatSidebar = () => {
     getProfileByUserEmail,
     {
       manual: true,
-    }
+    },
   )
-  
-  const channelHook = useCreateChannel()
-  
+
+  const channelHook = useCreateChat()
+
   if (!channelHook) return <div>Channel creation unavailable</div>
-  
+
   const { createChannel, isLoading: channelCreateLoading } = channelHook
 
   const handleAddChat = async () => {
@@ -45,8 +45,7 @@ const ChatSidebar = () => {
         onClick={handleAddChat}
         disabled={channelCreateLoading || getProfileLoading}
         className="w-full mt-2 h-11"
-        variant="default"
-      >
+        variant="default">
         {channelCreateLoading || getProfileLoading ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />

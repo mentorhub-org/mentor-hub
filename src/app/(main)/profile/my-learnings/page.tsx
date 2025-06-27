@@ -2,6 +2,7 @@
 
 import SessionCard from '@/components/shared/SessionCard'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import Title from '@/components/ui/title'
 import { SessionStatus, type MentoringSession } from '@prisma/client'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
@@ -61,7 +62,7 @@ export default function MyLearnings() {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">My Learning Sessions</h1>
+      <Title>My Learning Sessions</Title>
 
       <Tabs defaultValue="pending" className="w-full">
         <TabsList className="grid w-full grid-cols-3">

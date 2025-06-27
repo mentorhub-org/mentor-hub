@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { useGetProfile } from '../useGetProfile'
 import { useStream } from './useStream'
 
-export const useCreateChannel = () => {
+export const useCreateChat = () => {
   const streamChat = useStream()
   const { profile, profileError, profileLoading } = useGetProfile()
 

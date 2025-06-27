@@ -9,47 +9,49 @@ datasource db {
 }
 
 model User {
-  id               String    @id @default(uuid())
-  name             String
-  email            String
-  emailVerified    Boolean
-  image            String?
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
-  role             String?
-  banned           Boolean?
-  banReason        String?
-  banExpires       DateTime?
-  dateOfBirth      DateTime
-  phone            String
-  profile          Profile?
-  sessions         Session[]
-  accounts         Account[]
+  id            String    @id @default(uuid())
+  name          String
+  email         String
+  emailVerified Boolean
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  role          String?
+  banned        Boolean?
+  banReason     String?
+  banExpires    DateTime?
+  dateOfBirth   DateTime
+  phone         String
+  profile       Profile?
+  sessions      Session[]
+  accounts      Account[]
 
   @@unique([email])
   @@map("user")
 }
 
 model Profile {
-  id          String   @id @default(uuid())
-  userId      String   @unique
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  gender      String?
-  name        String
-  imgUrl      String?  @db.Text
-  phone       String
-  email       String   @unique @db.Text
-  location    String?
-  jobTitle    String?
-  dateOfBirth DateTime
-  about       String?
-  skills      String?
-  availableForMentoring Boolean? @default(false)
-  streamRegistered Boolean?  @default(false)
-  role        String?
-  mentoringSessions MentoringSession[] @relation("MentorSessions")
-  learningSessions  MentoringSession[] @relation("MenteeSessions")
-  socialLinks SocialLinks?
+  id                    String             @id @default(uuid())
+  userId                String             @unique
+  user                  User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gender                String?
+  name                  String
+  imgUrl                String?            @db.Text
+  phone                 String
+  email                 String             @unique @db.Text
+  location              String?
+  jobTitle              String?
+  dateOfBirth           DateTime
+  about                 String?
+  skills                String?
+  availableForMentoring Boolean?           @default(false)
+  streamRegistered      Boolean?           @default(false)
+  role                  String?
+  mentoringSessions     MentoringSession[] @relation("MentorSessions")
+  learningSessions      MentoringSession[] @relation("MenteeSessions")
+  menteeReviews         Review[]           @relation("MenteeReviews")
+  mentorReviews         Review[]           @relation("MentorReviews")
+  socialLinks           SocialLinks?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -59,18 +61,18 @@ model Profile {
 
 // Social Links Model
 model SocialLinks {
-  id        String   @id @default(uuid())
-  profileId String   @unique
-  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  id        String  @id @default(uuid())
+  profileId String  @unique
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   facebook  String?
-  instagram    String?
-  telegram   String?
-  whatsapp   String?
-  x   String?
+  instagram String?
+  telegram  String?
+  whatsapp  String?
+  x         String?
   linkedin  String?
   github    String?
   behance   String?
-  dribbble   String?
+  dribbble  String?
   youtube   String?
   pinterest String?
 
@@ -126,19 +128,36 @@ model MentoringSession {
   description String?
   price       String?
   thumbnail   String?       @db.Text
-  startTime   DateTime
-  endTime     DateTime?
+  date        DateTime
+  duration    Int
   status      SessionStatus @default(PENDING)
   notes       String?
-  
+
   // Relationships
-  mentorId    String
-  mentor      Profile          @relation("MentorSessions", fields: [mentorId], references: [id], onDelete: Cascade)
-  menteeId    String
-  mentee      Profile          @relation("MenteeSessions", fields: [menteeId], references: [id], onDelete: Cascade)
-  
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  mentorId String
+  mentor   Profile  @relation("MentorSessions", fields: [mentorId], references: [id], onDelete: Cascade)
+  menteeId String
+  mentee   Profile  @relation("MenteeSessions", fields: [menteeId], references: [id], onDelete: Cascade)
+  reviews  Review[] @relation("SessionReviews")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("mentoring_session")
+}
+
+model Review {
+  id          String           @id @default(uuid())
+  rating      Int
+  description String?
+  sessionId   String
+  session     MentoringSession @relation("SessionReviews", fields: [sessionId], references: [id], onDelete: Cascade)
+  mentorId    String
+  mentor      Profile          @relation("MentorReviews", fields: [mentorId], references: [id], onDelete: Cascade)
+  menteeId    String
+  mentee      Profile          @relation("MenteeReviews", fields: [menteeId], references: [id], onDelete: Cascade)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@map("review")
 }

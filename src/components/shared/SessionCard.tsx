@@ -10,31 +10,23 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { SessionStatus } from '@prisma/client'
+import { SessionStatus, type MentoringSession } from '@prisma/client'
 import { format } from 'date-fns'
 import { CalendarIcon, ClockIcon, EuroIcon } from 'lucide-react'
 
 interface SessionCardProps {
-  session: {
-    id: string
-    name: string
-    description?: string | null
-    price?: string | null
-    thumbnail?: string | null
-    startTime: Date
-    status: SessionStatus
-    notes?: string | null
+  session: MentoringSession & {
     mentor?: {
-      id: string
       name: string
+      id: string
       email: string
-      imgUrl?: string | null
+      imgUrl: string | null
     }
     mentee?: {
-      id: string
       name: string
+      id: string
       email: string
-      imgUrl?: string | null
+      imgUrl: string | null
     }
   }
   type: 'learning' | 'mentorship'
@@ -54,10 +46,12 @@ export default function SessionCard({
   type,
   onStatusUpdate,
 }: SessionCardProps) {
-  console.log(session.mentee)
-
   const otherUser = type === 'learning' ? session.mentor : session.mentee
   const canApprove = type === 'mentorship' && session.status === 'PENDING'
+
+  const canJoin =
+    session.status === 'UPCOMING' &&
+    isMeetingOngoing(new Date(session.date), session.duration)
 
   return (
     <Card className="w-full max-w-sm">
@@ -100,11 +94,11 @@ export default function SessionCard({
         <div className="flex items-center space-x-4 text-sm text-gray-600">
           <div className="flex items-center space-x-1">
             <CalendarIcon className="w-4 h-4" />
-            <span>{format(new Date(session.startTime), 'MMM dd, yyyy')}</span>
+            <span>{format(new Date(session.date), 'MMM dd, yyyy')}</span>
           </div>
           <div className="flex items-center space-x-1">
             <ClockIcon className="w-4 h-4" />
-            <span>{format(new Date(session.startTime), 'HH:mm')}</span>
+            <span>{showDuration(session.duration)}</span>
           </div>
           {session.price && (
             <div className="flex items-center space-x-1">
@@ -137,6 +131,27 @@ export default function SessionCard({
           </Button>
         </CardFooter>
       )}
+      {canJoin && (
+        <CardFooter>
+          <Button
+            onClick={() => (window.location.href = `/session/${session.id}`)}
+            className="flex-1">
+            Join Call
+          </Button>
+        </CardFooter>
+      )}
     </Card>
   )
+}
+
+function isMeetingOngoing(startDate: Date, durationMinutes: number): boolean {
+  const now = new Date()
+  const endDate = new Date(startDate.getTime() + durationMinutes * 60 * 1000)
+  return now >= startDate && now <= endDate
+}
+
+function showDuration(duration: number): string {
+  const hours = Math.floor(duration / 60)
+  const minutes = duration % 60
+  return `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`
 }

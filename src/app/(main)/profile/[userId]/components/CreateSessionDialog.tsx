@@ -1,7 +1,6 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { DateField, DateInput } from '@/components/ui/datefield-rac'
 import {
   Dialog,
   DialogContent,
@@ -14,7 +13,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useGetProfile } from '@/hooks/useGetProfile'
-import { CalendarDate } from '@internationalized/date'
 import { useState } from 'react'
 
 interface CreateSessionDialogProps {
@@ -35,6 +33,7 @@ export default function CreateSessionDialog({
   const [sessionData, setSessionData] = useState({
     name: '',
     date: new Date(),
+    duration: 60,
     price: '',
     description: '',
     notes: '',
@@ -57,6 +56,7 @@ export default function CreateSessionDialog({
 
   const handleSubmit = async () => {
     setIsSubmitting(true)
+
     try {
       const response = await fetch('/api/mentoring-sessions', {
         method: 'POST',
@@ -64,14 +64,10 @@ export default function CreateSessionDialog({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          ...sessionData,
           mentorId,
           menteeId: profile?.id,
-          name: sessionData.name,
-          description: sessionData.description,
-          price: sessionData.price,
-          startTime: sessionData.date,
           thumbnail: thumbnailPreview,
-          notes: sessionData.notes,
         }),
       })
 
@@ -84,8 +80,9 @@ export default function CreateSessionDialog({
       setSessionData({
         name: '',
         date: new Date(),
-        description: '',
+        duration: 60,
         price: '',
+        description: '',
         notes: '',
       })
       setThumbnailFile(null)
@@ -157,28 +154,32 @@ export default function CreateSessionDialog({
 
           {/* Date */}
           <div className="grid gap-2">
-            <Label htmlFor="date">Date</Label>
-            <div className="flex items-center  px-3 py-2">
-              <DateField
-                value={
-                  new CalendarDate(
-                    sessionData.date.getFullYear(),
-                    sessionData.date.getMonth() + 1,
-                    sessionData.date.getDate(),
-                  )
-                }
-                onChange={date => {
-                  if (date) {
-                    const newDate = new Date(
-                      date.year,
-                      date.month - 1,
-                      date.day,
-                    )
-                    setSessionData({ ...sessionData, date: newDate })
-                  }
-                }}>
-                <DateInput />
-              </DateField>
+            <Label htmlFor="date">Date & Time</Label>
+            <input
+              className="focus-visible:border-ring border-input border w-full p-2"
+              type="datetime-local"
+              onChange={e => {
+                const newDate = new Date(e.target.value)
+                setSessionData({ ...sessionData, date: newDate })
+              }}
+            />
+          </div>
+
+          {/* Duration */}
+          <div className="grid gap-2">
+            <Label htmlFor="duration">Duration</Label>
+            <div className="flex items-center focus-visible:border-ring border-input border w-full pr-2">
+              <input
+                className="w-full p-2"
+                type="number"
+                min={1}
+                placeholder="60"
+                onChange={e => {
+                  const minutes = parseInt(e.target.value) || 0
+                  setSessionData({ ...sessionData, duration: minutes })
+                }}
+              />
+              <span className="ml-2">minutes</span>
             </div>
           </div>
 

@@ -13,7 +13,8 @@ export async function createMentoringSession(data: {
   description?: string
   price?: string
   thumbnail?: string
-  startTime: Date
+  date: Date
+  duration: number
   notes?: string
 }) {
   const session = await auth.api.getSession({ headers: await headers() })
@@ -142,3 +143,24 @@ export async function updateSessionStatus(
     },
   })
 }
+
+setInterval(async () => {
+  const sessions = await prisma.mentoringSession.findMany({
+    where: {
+      status: SessionStatus.UPCOMING,
+    },
+  })
+
+  for (const session of sessions) {
+    const now = new Date()
+    const endDate = new Date(
+      session.date.getTime() + session.duration * 60 * 1000,
+    )
+    if (now >= endDate) {
+      await prisma.mentoringSession.update({
+        where: { id: session.id },
+        data: { status: SessionStatus.COMPLETED },
+      })
+    }
+  }
+}, 1000)
