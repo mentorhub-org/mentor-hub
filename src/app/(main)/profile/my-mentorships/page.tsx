@@ -106,7 +106,9 @@ export default function MyMentorships() {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="pending" className="flex gap-4">
+        <TabsContent
+          value="pending"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {pendingSessions.length === 0 ? (
             <p className="text-gray-500 text-center py-8">
               No pending sessions
@@ -123,7 +125,9 @@ export default function MyMentorships() {
           )}
         </TabsContent>
 
-        <TabsContent value="upcoming" className="flex gap-4">
+        <TabsContent
+          value="upcoming"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {upcomingSessions.length === 0 ? (
             <p className="text-gray-500 text-center py-8">
               No upcoming sessions
@@ -139,7 +143,9 @@ export default function MyMentorships() {
           )}
         </TabsContent>
 
-        <TabsContent value="history" className="flex gap-4">
+        <TabsContent
+          value="history"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {historySessions.length === 0 ? (
             <p className="text-gray-500 text-center py-8">No session history</p>
           ) : (

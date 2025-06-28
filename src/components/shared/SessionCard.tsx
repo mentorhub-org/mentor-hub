@@ -54,7 +54,7 @@ export default function SessionCard({
     isMeetingOngoing(new Date(session.date), session.duration)
 
   return (
-    <Card className="w-full max-w-sm">
+    <Card>
       <CardHeader>
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">

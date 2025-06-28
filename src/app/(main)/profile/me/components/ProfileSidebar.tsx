@@ -13,13 +13,6 @@ type ProfileSidebarProps = {
 
 export default async function ProfileSidebar({ profile }: ProfileSidebarProps) {
   const socialLinks = await getProfileSocialLinks(profile.id)
-  // Static data for mentorship stats
-  const mentorshipStats = {
-    ongoing: 5,
-    completed: 42,
-    unfinished: 3,
-    postponed: 1,
-  }
 
   return (
     <aside className="m-3 w-full md:w-1/4 max-w-sm bg-white md:p-8 lg:p-10 rounded-2xl">
@@ -29,7 +22,6 @@ export default async function ProfileSidebar({ profile }: ProfileSidebarProps) {
           name={profile.name || 'User'}
           title={profile.jobTitle || 'Mentor'}
           id={profile.id}
-          // rating={profile.rating || 4.8}
           rating={4.8}
           profileImage={profile.imgUrl || PROFILE}
         />
@@ -55,7 +47,7 @@ export default async function ProfileSidebar({ profile }: ProfileSidebarProps) {
         <hr className="my-6 border-gray-300 w-full" />
 
         {/* Mentorship Sessions Section */}
-        <MentorshipStats {...mentorshipStats} />
+        <MentorshipStats profileId={profile.id} />
 
         <hr className="my-6 border-gray-300 w-full" />
 
