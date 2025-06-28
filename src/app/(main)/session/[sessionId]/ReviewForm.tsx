@@ -1,14 +1,12 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import type { MentoringSession } from '@prisma/client'
+import { redirect } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-type ReviewFormProps = {
-  onReviewSubmitted: () => void
-}
-
-export default function ReviewForm({ onReviewSubmitted }: ReviewFormProps) {
+export default function ReviewForm({ session }: { session: MentoringSession }) {
   const [reviewText, setReviewText] = useState('')
   const [rating, setRating] = useState(5)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -20,15 +18,30 @@ export default function ReviewForm({ onReviewSubmitted }: ReviewFormProps) {
     }
 
     try {
-      setIsSubmitting(true)
-      // await submitReview(profileId, {
-      //   text: reviewText,
-      //   rating
-      // })
-      console.log('Review submitted successfully', reviewText, rating)
-      toast.success('Review submitted successfully')
-      setReviewText('')
-      onReviewSubmitted()
+      async function rateSession() {
+        setIsSubmitting(true)
+        const sessionRate = {
+          rating,
+          description: reviewText,
+          sessionId: session.id,
+          mentorId: session.mentorId,
+          menteeId: session.menteeId,
+        }
+
+        const response = await fetch('/api/review', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(sessionRate),
+        })
+        if (!response.ok) {
+          throw new Error('Failed to rate session')
+        }
+        toast.success('Review submitted successfully')
+        redirect('/')
+      }
+      rateSession()
     } catch (error) {
       toast.error('Failed to submit review. Please try again.')
       console.error(error)

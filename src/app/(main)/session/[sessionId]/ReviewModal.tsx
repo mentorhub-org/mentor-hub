@@ -1,5 +1,4 @@
 import ReviewForm from '@/app/(main)/session/[sessionId]/ReviewForm'
-import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -8,24 +7,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import type { MentoringSession } from '@prisma/client'
 
 interface ReviewModalProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  review: string
-  setReview: (review: string) => void
-  submitting: boolean
-  onSubmit: () => void
+  session: MentoringSession
 }
 
-export function ReviewModal({
-  open,
-  onOpenChange,
-  review,
-  setReview,
-  submitting,
-  onSubmit,
-}: ReviewModalProps) {
+export function ReviewModal({ open, onOpenChange, session }: ReviewModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
@@ -36,13 +26,9 @@ export function ReviewModal({
           </DialogDescription>
         </DialogHeader>
         <DialogContent>
-          <ReviewForm onReviewSubmitted={() => {}} />
+          <ReviewForm session={session} />
         </DialogContent>
-        <DialogFooter>
-          <Button onClick={onSubmit} disabled={submitting || !review}>
-            {submitting ? 'Submitting...' : 'Submit Review'}
-          </Button>
-        </DialogFooter>
+        <DialogFooter></DialogFooter>
       </DialogContent>
     </Dialog>
   )

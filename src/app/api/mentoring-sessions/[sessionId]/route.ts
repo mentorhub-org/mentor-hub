@@ -24,12 +24,16 @@ export async function PATCH(
   }
 }
 
-export async function GET({ params }: { params: { sessionId: string } }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { sessionId: string } },
+) {
+  const sessionId = await params.sessionId
+  console.log(sessionId)
   try {
-    const sessionId = await params
     const session = await prisma.mentoringSession.findUnique({
       where: {
-        id: sessionId.sessionId,
+        id: sessionId,
       },
     })
     if (!session) {

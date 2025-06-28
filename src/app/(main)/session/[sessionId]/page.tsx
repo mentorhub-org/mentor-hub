@@ -1,6 +1,9 @@
 'use client'
+
 import { ReviewModal } from '@/app/(main)/session/[sessionId]/ReviewModal'
 import { useJoinCall } from '@/hooks/streamIO/useJoinCall'
+import { useGetProfile } from '@/hooks/useGetProfile'
+import type { MentoringSession } from '@prisma/client'
 import {
   CallControls,
   SpeakerLayout,
@@ -8,12 +11,33 @@ import {
   StreamTheme,
   StreamVideo,
 } from '@stream-io/video-react-sdk'
-import { redirect } from 'next/navigation'
+import { redirect, useParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
 export default function Session() {
+  const { sessionId } = useParams()
+  const { profile } = useGetProfile()
   const ref = useRef(false)
+  const [session, setSession] = useState<MentoringSession>()
+  const [sessionLoading, setSessionLoading] = useState(true)
   const { call, videoClient, isLoading } = useJoinCall()
+
+  useEffect(() => {
+    try {
+      const fetchSession = async () => {
+        setSessionLoading(true)
+        const session = await fetch(
+          `/api/mentoring-sessions/${sessionId}`,
+        ).then(res => res.json())
+
+        setSession(session)
+        setSessionLoading(false)
+      }
+      fetchSession()
+    } catch (error) {
+      console.error('Error fetching session:', error)
+    }
+  }, [])
 
   useEffect(() => {
     const joinCall = async () => {
@@ -26,25 +50,18 @@ export default function Session() {
   }, [call])
 
   const [showReview, setShowReview] = useState(false)
-  const [review, setReview] = useState('')
-  const [submitting, setSubmitting] = useState(false)
+  if (isLoading || !call || !videoClient || sessionLoading || !session) {
+    return <p>Loading...</p>
+  }
 
   const handleLeave = () => {
     call?.leave()
+    if (profile?.id == session?.mentorId) {
+      redirect('/')
+    }
     setShowReview(true)
   }
 
-  const handleSubmitReview = async () => {
-    setSubmitting(true)
-    // TODO: Send review to API/backend here
-    setShowReview(false)
-    setSubmitting(false)
-    redirect('/')
-  }
-
-  if (isLoading || !call || !videoClient) {
-    return <p>Loading...</p>
-  }
   return (
     <>
       <StreamVideo client={videoClient}>
@@ -58,10 +75,7 @@ export default function Session() {
       <ReviewModal
         open={showReview}
         onOpenChange={setShowReview}
-        review={review}
-        setReview={setReview}
-        submitting={submitting}
-        onSubmit={handleSubmitReview}
+        session={session}
       />
     </>
   )
