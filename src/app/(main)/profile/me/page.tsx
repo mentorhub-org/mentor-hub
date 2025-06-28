@@ -23,7 +23,7 @@ export default async function Profile() {
           <Skills skills={profile.skills?.split(',') || []} />
 
           {/* Reviews Section */}
-          <Reviews profileId={profile.id} />
+          <Reviews />
         </main>
       </div>
     </main>

@@ -2,13 +2,8 @@
 
 import Title from '@/components/ui/title'
 import ReviewCard from './ReviewCard'
-import ReviewForm from './ReviewForm'
 
-type ReviewsProps = {
-  profileId: string
-}
-
-export default function Reviews({ profileId }: ReviewsProps) {
+export default function Reviews() {
   // Static reviews data
   const staticReviews = [
     {
@@ -44,8 +39,6 @@ export default function Reviews({ profileId }: ReviewsProps) {
     <section className="mt-8">
       <Title>Reviews</Title>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-        <ReviewForm profileId={profileId} onReviewSubmitted={() => {}} />
-
         {staticReviews.map(review => (
           <ReviewCard key={review.id} review={review} />
         ))}

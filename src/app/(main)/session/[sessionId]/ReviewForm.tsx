@@ -5,14 +5,10 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 
 type ReviewFormProps = {
-  profileId: string
   onReviewSubmitted: () => void
 }
 
-export default function ReviewForm({
-  profileId,
-  onReviewSubmitted,
-}: ReviewFormProps) {
+export default function ReviewForm({ onReviewSubmitted }: ReviewFormProps) {
   const [reviewText, setReviewText] = useState('')
   const [rating, setRating] = useState(5)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -42,7 +38,7 @@ export default function ReviewForm({
   }
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md flex flex-col gap-4">
+    <div className="bg-white p-6 flex flex-col gap-4">
       <h3 className="text-lg sm:text-xl font-semibold text-gray-800">
         Give Us Your Review
       </h3>
@@ -53,7 +49,7 @@ export default function ReviewForm({
             key={star}
             type="button"
             onClick={() => setRating(star)}
-            className="text-2xl focus:outline-none">
+            className="text-3xl focus:outline-none">
             <span
               className={star <= rating ? 'text-yellow-400' : 'text-gray-300'}>
               ★

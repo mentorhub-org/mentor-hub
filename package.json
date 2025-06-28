@@ -14,6 +14,8 @@
     "db:studio": " bun prisma studio"
   },
   "dependencies": {
+    "@ai-sdk/google": "^1.2.19",
+    "@ai-sdk/react": "^1.2.12",
     "@hookform/resolvers": "^5.0.1",
     "@prisma/client": "^6.9.0",
     "@prisma/extension-accelerate": "^1.3.0",
@@ -25,6 +27,7 @@
     "@radix-ui/react-slot": "^1.2.3",
     "@stream-io/video-react-sdk": "^1.18.6",
     "ahooks": "^3.8.4",
+    "ai": "^4.3.16",
     "better-auth": "^1.2.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

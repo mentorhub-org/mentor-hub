@@ -18,7 +18,6 @@ import {
   MessageList,
   Window,
 } from 'stream-chat-react'
-import 'stream-chat-react/dist/css/v2/index.css'
 
 type Props = {}
 

@@ -1,4 +1,6 @@
 import Navbar from '@/components/navbar'
+import { AIChatbot } from '@/components/shared/ai-chatbot'
+import 'stream-chat-react/dist/css/v2/index.css'
 
 export const metadata = {
   title: 'Mentor Hub',
@@ -14,6 +16,7 @@ export default function ProfileLayout({
     <main className="container mx-auto">
       <Navbar />
       {children}
+      <AIChatbot />
     </main>
   )
 }
