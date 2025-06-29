@@ -22,7 +22,7 @@ export const getProfile = async (id?: string) => {
     where: { userId },
   })
 
-  if (!profile) throw new Error('Profile not found "coded by ragab"')
+  if (!profile) throw new Error('Profile not found')
   return profile
 }
 

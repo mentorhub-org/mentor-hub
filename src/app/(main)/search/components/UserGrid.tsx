@@ -46,33 +46,6 @@ export default function UserGrid({ filters }: UserGridProps) {
       {users.map(user => (
         <UserCard key={user.id} user={user} />
       ))}
-      {users.map(user => (
-        <UserCard key={user.id} user={user} />
-      ))}
-      {users.map(user => (
-        <UserCard key={user.id} user={user} />
-      ))}
-      {users.map(user => (
-        <UserCard key={user.id} user={user} />
-      ))}
-      {users.map(user => (
-        <UserCard key={user.id} user={user} />
-      ))}
-      {users.map(user => (
-        <UserCard key={user.id} user={user} />
-      ))}
-      {users.map(user => (
-        <UserCard key={user.id} user={user} />
-      ))}
-      {users.map(user => (
-        <UserCard key={user.id} user={user} />
-      ))}
-      {users.map(user => (
-        <UserCard key={user.id} user={user} />
-      ))}
-      {users.map(user => (
-        <UserCard key={user.id} user={user} />
-      ))}
     </div>
   )
 }

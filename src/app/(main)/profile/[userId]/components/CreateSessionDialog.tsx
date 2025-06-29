@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useGetProfile } from '@/hooks/useGetProfile'
+import { redirect } from 'next/navigation'
 import { useState } from 'react'
 
 interface CreateSessionDialogProps {
@@ -29,7 +30,6 @@ export default function CreateSessionDialog({
   mentorName,
 }: CreateSessionDialogProps) {
   const { profile } = useGetProfile()
-
   const [sessionData, setSessionData] = useState({
     name: '',
     date: new Date(),
@@ -56,42 +56,24 @@ export default function CreateSessionDialog({
 
   const handleSubmit = async () => {
     setIsSubmitting(true)
-
-    try {
-      const response = await fetch('/api/mentoring-sessions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...sessionData,
-          mentorId,
-          menteeId: profile?.id,
-          thumbnail: thumbnailPreview,
-        }),
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to create session')
-      }
-
-      // Close the dialog and reset form
-      onClose()
-      setSessionData({
-        name: '',
-        date: new Date(),
-        duration: 60,
-        price: '',
-        description: '',
-        notes: '',
-      })
-      setThumbnailFile(null)
-      setThumbnailPreview(null)
-    } catch (error) {
-      console.error('Error creating session:', error)
-    } finally {
-      setIsSubmitting(false)
+    const appendData = {
+      ...sessionData,
+      thumbnail: '',
+      mentorId,
+      menteeId: profile?.id,
     }
+    const checkoutUrl = await fetch('/api/payment', {
+      method: 'POST',
+      body: JSON.stringify(appendData),
+    }).then(res => res.json())
+
+    if (!checkoutUrl) {
+      console.log(checkoutUrl)
+      setIsSubmitting(false)
+      return
+    }
+
+    redirect(checkoutUrl)
   }
 
   return (
